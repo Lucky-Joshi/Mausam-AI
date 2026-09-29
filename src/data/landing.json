@@ -2,7 +2,7 @@
   "meta": {
     "title": "Mausam AI",
     "description": "Personalised Weather Intelligence for every citizen, every crop and every journey.",
-    "edition": "Smart India Hackathon 2026 · Frontend Prototype"
+    "edition": "Personalised weather intelligence"
   },
   "hero": {
     "eyebrow": "Personalised Weather Intelligence",
@@ -65,7 +65,7 @@
   },
   "features": {
     "eyebrow": "Capabilities",
-    "title": "Built for judging, engineered for scale",
+    "title": "Built for every citizen, engineered for scale",
     "description": "Every module is driven by structured JSON, so swapping the local files for API responses requires no UI change.",
     "items": [
       {
@@ -126,10 +126,10 @@
     "title": "Open the live dashboard",
     "description": "Pick a persona, drag a slider and watch the entire intelligence surface rebuild. Nothing leaves your browser.",
     "button": "Launch Demo",
-    "note": "Frontend prototype · local JSON data only · no backend, no database, no API keys"
+    "note": "Loading your personalised weather workspace…"
   },
   "footer": {
-    "note": "Mausam AI — personalised weather intelligence prototype. All data shown is static local JSON for demonstration purposes.",
+    "note": "Mausam AI - personalised weather intelligence for every citizen, every crop and every journey.",
     "columns": [
       { "id": "product", "title": "Product", "links": ["Dashboard", "Personas", "Simulation"] },
       { "id": "modules", "title": "Modules", "links": ["Weather", "Alerts", "Analytics", "Maps"] },

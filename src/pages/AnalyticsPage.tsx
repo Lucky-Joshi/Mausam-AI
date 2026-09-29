@@ -52,9 +52,7 @@ export const AnalyticsPage = () => {
               </span>
               <div className="section-head__text">
                 <h2>Persona comparison</h2>
-                <p>
-                  The exact same simulation evaluated for all five personas — click a row to switch the live dashboard
-                </p>
+                <p>Your current conditions evaluated for all five personas — tap a row to switch the live dashboard</p>
               </div>
             </div>
           </div>
@@ -124,7 +122,7 @@ export const AnalyticsPage = () => {
               </span>
               <div className="section-head__text">
                 <h2>Live output for {model.weather.persona.label}</h2>
-                <p>Counts produced by the engine right now, before any persona switch</p>
+                <p>Live counts for the active persona, updated with every change</p>
               </div>
             </div>
           </div>

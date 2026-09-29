@@ -1,7 +1,7 @@
 {
   "labels": {
     "title": "Live Simulation Panel",
-    "description": "Change any input and the entire dashboard re-computes instantly from local JSON. No backend, no network calls.",
+    "description": "Change any input and the entire dashboard re-computes instantly — every card, alert and forecast stays in sync.",
     "context": "Context",
     "atmosphere": "Atmosphere",
     "reset": "Reset",
@@ -9,7 +9,7 @@
     "live": "Live",
     "scenarios": "Scenario presets",
     "derived": "Auto-derived",
-    "derivedHint": "Computed from temperature, humidity, wind and time of day by the local engine."
+    "derivedHint": "Computed from temperature, humidity, wind and time of day."
   },
   "ranges": {
     "temperature": { "min": -10, "max": 50, "step": 1 },

@@ -20,7 +20,7 @@ export const DashboardPage = () => {
         <div>
           <h1>{dashboard.appName} Dashboard</h1>
           <p className="muted">
-            {section?.subtitle} · resolved {model.generatedAt}
+            {section?.subtitle} · updated {model.generatedAt}
           </p>
         </div>
         <span className="badge">

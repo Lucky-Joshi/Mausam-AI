@@ -19,8 +19,8 @@ export type AuthResult = { ok: true; user: StoredUser } | { ok: false; error: st
 
 const USERS_KEY = 'mausam-ai.users.v1'
 const SESSION_KEY = 'mausam-ai.session.v1'
-const DEMO_EMAIL = 'demo@mausam.ai'
-const DEMO_PASSWORD = 'demo1234'
+const DEMO_EMAIL = 'aarav@mausam.ai'
+const DEMO_PASSWORD = 'mausam123'
 
 const encode = (value: string) => btoa(encodeURIComponent(value))
 

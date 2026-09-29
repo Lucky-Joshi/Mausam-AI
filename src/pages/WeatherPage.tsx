@@ -55,7 +55,7 @@ export const WeatherPage = () => {
               </span>
               <div className="section-head__text">
                 <h2>Change the conditions</h2>
-                <p>Same controls as the simulation panel — the whole dashboard, forecast and alerts re-resolve instantly</p>
+                <p>Change the conditions — forecast, alerts, risk and recommendations update instantly</p>
               </div>
             </div>
           </div>

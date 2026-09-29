@@ -98,7 +98,7 @@ const SettingsPage = () => {
               </span>
               <div className="section-head__text">
                 <h2>Reset</h2>
-                <p>Put the prototype back into its judging-ready state in one click</p>
+                <p>Restore every option to its default value in one click</p>
               </div>
             </div>
           </div>
@@ -119,8 +119,7 @@ const SettingsPage = () => {
                 </div>
               </header>
               <p className="rec-card__desc">
-                Returns the simulation panel to <code>dashboard.defaultState</code> — Bengaluru, morning, runner,
-                partly cloudy.
+                Returns the simulation to its starting state — Bengaluru, morning, runner, partly cloudy.
               </p>
             </button>
 
@@ -144,7 +143,7 @@ const SettingsPage = () => {
                 </div>
               </header>
               <p className="rec-card__desc">
-                Overwrites the saved preferences in <code>mausam-ai.preferences.v1</code> with the shipped defaults.
+                Theme, units, explainability depth and panel state are all returned to the shipped defaults.
               </p>
             </button>
           </div>
@@ -154,9 +153,8 @@ const SettingsPage = () => {
           <Icon name="database" size={22} />
           <strong>Preferences are stored locally</strong>
           <p>
-            Theme, units, explainability depth and the simulation panel state persist in <code>localStorage</code> under{' '}
-            <code>mausam-ai.preferences.v1</code>; your account lives in <code>mausam-ai.users.v1</code> and the session in{' '}
-            <code>mausam-ai.session.v1</code>. Everything stays in this browser.
+            Theme, units, explainability depth and panel state are saved automatically — along with your account —
+            privately on this device.
           </p>
         </div>
       </div>

@@ -58,7 +58,7 @@ export const AlertsPage = () => {
           <h1>{nav?.label ?? 'Alerts'}</h1>
           <p className="muted">{nav?.description}</p>
         </div>
-        <span className="badge">{model.alerts.length} active for this simulation</span>
+        <span className="badge">{model.alerts.length} active alerts</span>
       </header>
 
       <div className="stack">
@@ -91,9 +91,7 @@ export const AlertsPage = () => {
               </span>
               <div className="section-head__text">
                 <h2>Trigger rules</h2>
-                <p>
-                  Every rule the engine evaluated from <code>src/data/alerts.json</code> — shown whether or not it fired
-                </p>
+                <p>Every rule in the alert engine — whether it fired or not</p>
               </div>
             </div>
           </div>

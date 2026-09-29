@@ -2,7 +2,7 @@
   "appName": "Mausam AI",
   "appShort": "MA",
   "tagline": "Personalised Weather Intelligence",
-  "version": "v1.0 · Smart India Hackathon prototype",
+  "version": "v1.0",
   "edition": "SIH 2026",
   "navigation": [
     {
@@ -10,7 +10,7 @@
       "label": "Dashboard",
       "icon": "layout-dashboard",
       "path": "/dashboard",
-      "description": "Full intelligence view with simulation controls"
+      "description": "Live intelligence view across weather, risk and alerts"
     },
     {
       "id": "weather",
@@ -24,9 +24,7 @@
       "label": "Maps",
       "icon": "map",
       "path": "/maps",
-      "placeholder": true,
-      "badge": "Soon",
-      "description": "Radar and heat map layer — planned module"
+    "description": "Radar, rainfall and air-quality layers for every city"
     },
     {
       "id": "alerts",
@@ -100,7 +98,7 @@
     "role": "Marathon athlete",
     "initials": "AR",
     "location": "Bengaluru, Karnataka",
-    "plan": "SIH Prototype · Local data"
+    "plan": "Pro plan · Active"
   },
   "settings": [
     {

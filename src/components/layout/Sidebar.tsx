@@ -65,8 +65,8 @@ export const Sidebar = ({ open = false, onClose }: SidebarProps) => {
         <div className="sidebar__status">
           <span className="status-dot" />
           <div>
-            <strong>Local data engine</strong>
-            <span>{dashboard.version}</span>
+            <strong>Weather engine online</strong>
+            <span>Synced · {dashboard.version}</span>
           </div>
         </div>
       </div>

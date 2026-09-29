@@ -70,8 +70,8 @@ export const ExplainabilityPanel = () => {
   return (
     <section className="stack">
       <SectionHead
-        title="Why this dashboard looks like this"
-        subtitle="Every generated card traces back to a rule, a threshold and a JSON source"
+        title="Decision transparency"
+        subtitle="Open any card to see the rule, threshold and confidence behind it"
         icon="scan-eye"
         action={
           <div className="segmented" role="tablist" aria-label="Explainability depth">
@@ -87,9 +87,9 @@ export const ExplainabilityPanel = () => {
 
       <div className="card pad-lg explain-card">
         <p className="tiny muted">
-          <strong>{explanation.entries.length} cards generated</strong> from <code>src/data/*.json</code> for{' '}
-          <strong>{model.weather.persona.label}</strong> in <strong>{model.weather.location.label}</strong> · resolved at{' '}
-          {model.generatedAt} · no backend, no API keys.
+          <strong>{explanation.entries.length} cards active</strong> for{' '}
+          <strong>{model.weather.persona.label}</strong> in <strong>{model.weather.location.label}</strong> · updated at{' '}
+          {model.generatedAt}
         </p>
 
         <motion.div

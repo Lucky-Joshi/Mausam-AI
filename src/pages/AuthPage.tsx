@@ -9,12 +9,12 @@ import { EASE_OUT } from '../lib/motion'
 
 type Mode = 'signin' | 'signup'
 
-const DEMO = { email: 'demo@mausam.ai', password: 'demo1234' }
+const DEMO = { email: 'aarav@mausam.ai', password: 'mausam123' }
 
 const highlights = [
   { id: 'persona', icon: 'users', text: 'Five personas rebuild the dashboard, alerts and widgets live.' },
-  { id: 'simulate', icon: 'sliders-horizontal', text: 'Simulation panel drives AQI, temperature, rain and UV in real time.' },
-  { id: 'explain', icon: 'scan-eye', text: 'Every generated card shows its reasoning, thresholds and confidence.' },
+  { id: 'conditions', icon: 'sliders-horizontal', text: 'Live controls drive AQI, temperature, rain and UV in real time.' },
+  { id: 'explain', icon: 'scan-eye', text: 'Every card shows its reasoning, thresholds and confidence.' },
 ]
 
 export const AuthPage = () => {
@@ -107,8 +107,8 @@ export const AuthPage = () => {
           <h2 className="auth__title">{mode === 'signin' ? 'Welcome back' : 'Create your account'}</h2>
           <p className="muted small">
             {mode === 'signin'
-              ? 'Sign in to open the personalised weather dashboard.'
-              : 'Your profile is stored in this browser only — nothing is sent anywhere.'}
+              ? 'Sign in to open your personalised weather dashboard.'
+              : 'Create an account to personalise your weather workspace.'}
           </p>
 
           <form className="auth__form" onSubmit={submit}>
@@ -163,16 +163,15 @@ export const AuthPage = () => {
           </form>
 
           <div className="auth__demo">
-            <span className="tiny muted">Demo judge account</span>
+            <span className="tiny muted">Quick start</span>
             <button className="btn btn-soft btn-sm btn-block" type="button" onClick={() => { setMode('signin'); setEmail(DEMO.email); setPassword(DEMO.password); setError('') }}>
               <Icon name="zap" size={14} />
-              Use demo@mausam.ai · demo1234
+              Use sample credentials
             </button>
           </div>
 
           <p className="tiny muted auth__note">
-            <Icon name="hard-drive" size={12} /> Stored under <code>mausam-ai.users.v1</code> in localStorage ·{' '}
-            {dashboard.version}
+            <Icon name="hard-drive" size={12} /> Saved privately on this device · {dashboard.version}
           </p>
         </motion.div>
       </div>

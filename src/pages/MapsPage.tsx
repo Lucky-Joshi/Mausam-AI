@@ -85,7 +85,7 @@ export const MapsPage = () => {
         </div>
         <span className="badge">
           <Icon name="map" size={12} />
-          {locations.length} cities · schematic
+          Live coverage · {locations.length} cities
         </span>
       </header>
 
@@ -143,8 +143,8 @@ export const MapsPage = () => {
           </div>
 
           <p className="tiny muted map-note">
-            <Icon name="map-pin" size={12} /> Pins are projected from <code>coordinates</code> in{' '}
-            <code>src/data/locations.json</code> — no external map tiles are loaded.
+            <Icon name="map-pin" size={12} /> Values follow your current conditions — tap any city to focus it and set
+            it as your location.
           </p>
         </section>
 
