@@ -1,0 +1,147 @@
+{
+  "appName": "Mausam AI",
+  "appShort": "MA",
+  "tagline": "Personalised Weather Intelligence",
+  "version": "v1.0 · Smart India Hackathon prototype",
+  "edition": "SIH 2026",
+  "navigation": [
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "icon": "layout-dashboard",
+      "path": "/dashboard",
+      "description": "Full intelligence view with simulation controls"
+    },
+    {
+      "id": "weather",
+      "label": "Weather",
+      "icon": "cloud-sun",
+      "path": "/weather",
+      "description": "Current observation, hourly trend and 7-day outlook"
+    },
+    {
+      "id": "maps",
+      "label": "Maps",
+      "icon": "map",
+      "path": "/maps",
+      "placeholder": true,
+      "badge": "Soon",
+      "description": "Radar and heat map layer — planned module"
+    },
+    {
+      "id": "alerts",
+      "label": "Alerts",
+      "icon": "bell-ring",
+      "path": "/alerts",
+      "description": "Active warnings ranked by severity"
+    },
+    {
+      "id": "analytics",
+      "label": "Analytics",
+      "icon": "line-chart",
+      "path": "/analytics",
+      "description": "Model confidence, trends and risk decomposition"
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "icon": "user-round",
+      "path": "/profile",
+      "description": "Persona profile, goals and activity history"
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "icon": "settings",
+      "path": "/settings",
+      "description": "Units, appearance and simulation preferences"
+    }
+  ],
+  "sections": [
+    { "id": "overview", "title": "Weather Overview", "subtitle": "Live observation resolved for the selected persona and location", "icon": "cloud-sun" },
+    { "id": "insight", "title": "AI Insight", "subtitle": "Highest-value recommendation ranked by confidence", "icon": "sparkles" },
+    { "id": "widgets", "title": "Dynamic Widgets", "subtitle": "Cards are generated from the selected persona", "icon": "layout-grid" },
+    { "id": "recommendations", "title": "Recommendations", "subtitle": "Ranked actions derived from active rules", "icon": "list-checks" },
+    { "id": "alerts", "title": "Alerts", "subtitle": "Official and model-generated warnings", "icon": "bell-ring" },
+    { "id": "forecast", "title": "7-Day Forecast", "subtitle": "Outlook for the selected location", "icon": "calendar-days" },
+    { "id": "risk", "title": "Risk Meter", "subtitle": "Weighted composite hazard index", "icon": "gauge" }
+  ],
+  "defaultState": {
+    "persona": "runner",
+    "condition": "partly-cloudy",
+    "timeOfDay": "morning",
+    "location": "bengaluru",
+    "temperature": 23,
+    "humidity": 51,
+    "aqi": 56,
+    "rainProbability": 10,
+    "uv": 4,
+    "wind": 10
+  },
+  "insight": {
+    "eyebrow": "Today's Recommendation",
+    "title": "Priority action for your persona",
+    "priorityLabel": "Priority",
+    "confidenceLabel": "Confidence",
+    "reasonLabel": "Reason",
+    "disclaimer": "Generated locally from structured JSON. In production this panel is served by the Mausam reasoning service."
+  },
+  "search": {
+    "placeholder": "Search city, persona or module",
+    "hint": "Type to filter modules, cities and personas",
+    "quickPicksLabel": "Quick picks"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No new notifications. Alerts appear here as conditions change."
+  },
+  "profile": {
+    "name": "Aarav Rathore",
+    "role": "Marathon athlete",
+    "initials": "AR",
+    "location": "Bengaluru, Karnataka",
+    "plan": "SIH Prototype · Local data"
+  },
+  "settings": [
+    {
+      "id": "units",
+      "title": "Units",
+      "description": "How measurements are presented across the dashboard",
+      "icon": "ruler",
+      "options": [
+        { "id": "metric", "label": "Metric", "description": "Celsius, km/h, kilometres", "icon": "thermometer" },
+        { "id": "imperial", "label": "Imperial", "description": "Fahrenheit, mph, miles", "icon": "thermometer-sun" }
+      ]
+    },
+    {
+      "id": "appearance",
+      "title": "Appearance",
+      "description": "Interface density and theme preference",
+      "icon": "sun-moon",
+      "options": [
+        { "id": "light", "label": "Light", "description": "Bright government-grade surface", "icon": "sun" },
+        { "id": "dark", "label": "Dark", "description": "Low-light control room theme", "icon": "moon" }
+      ]
+    },
+    {
+      "id": "simulation",
+      "title": "Simulation",
+      "description": "Behaviour of the live panel on the dashboard",
+      "icon": "sliders-horizontal",
+      "options": [
+        { "id": "sticky", "label": "Sticky open", "description": "Keep the panel open while switching personas", "icon": "panel-right-open" },
+        { "id": "docked", "label": "Docked", "description": "Collapse the panel to a slim rail", "icon": "panel-right-close" }
+      ]
+    },
+    {
+      "id": "explainability",
+      "title": "Explainability",
+      "description": "Transparency level for every generated card",
+      "icon": "scan-eye",
+      "options": [
+        { "id": "full", "label": "Full reasoning", "description": "Show every factor behind a card", "icon": "list" },
+        { "id": "summary", "label": "Summary only", "description": "Show headline and confidence", "icon": "text" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1117 @@
+{
+  "widgets": [
+    {
+      "id": "running-score",
+      "personas": ["runner"],
+      "label": "Running Score",
+      "icon": "gauge",
+      "type": "gauge",
+      "unit": "/100",
+      "size": "wide",
+      "accent": "#2563eb",
+      "source": "Mausam Activity Scorer v2.1",
+      "compute": {
+        "kind": "score",
+        "base": 78,
+        "factors": [
+          { "metric": "aqi", "weight": -26, "low": 20, "high": 200 },
+          { "metric": "rainProbability", "weight": -24, "low": 10, "high": 90 },
+          { "metric": "temperature", "weight": 20, "optimum": 22, "tolerance": 15 },
+          { "metric": "humidity", "weight": -12, "low": 30, "high": 85 },
+          { "metric": "wind", "weight": -10, "low": 8, "high": 40 },
+          { "metric": "uv", "weight": -8, "low": 4, "high": 11 }
+        ]
+      },
+      "why": {
+        "headline": "Running suitability blends six live factors into a single 0–100 score.",
+        "confidence": 94,
+        "factors": [
+          { "text": "User persona is {{persona}}" },
+          { "text": "AQI is {{aqi}} ({{aqiLabel}}) — airway load is the largest single penalty", "when": { "aqi": { "gte": 80 } } },
+          { "text": "Rain probability {{rainProbability}}% with {{conditionLabel}} conditions", "when": { "rainProbability": { "gte": 30 } } },
+          { "text": "Temperature {{temperature}}°C sits near the {{idealWindow}} comfort optimum" },
+          { "text": "Humidity {{humidity}}% reduces evaporative cooling", "when": { "humidity": { "gte": 70 } } },
+          { "text": "Wind {{wind}} km/h is workable for {{persona}}", "when": { "wind": { "lt": 28 } } },
+          { "text": "UV {{uv}} at {{timeOfDayLabel}} needs sunscreen after 40 minutes", "when": { "uv": { "gte": 6 } } }
+        ]
+      }
+    },
+    {
+      "id": "runner-aqi",
+      "personas": ["runner"],
+      "label": "Air Quality",
+      "icon": "wind",
+      "type": "band",
+      "unit": " AQI",
+      "size": "normal",
+      "accent": "#0ea5a4",
+      "source": "CPCB AQI station feed",
+      "compute": { "kind": "band", "metric": "aqi", "bandKey": "aqi" },
+      "why": {
+        "headline": "Breathing comfort is the deciding factor for every outdoor run.",
+        "confidence": 97,
+        "factors": [
+          { "text": "User persona is {{persona}} — breathing load is critical" },
+          { "text": "AQI is {{aqi}} which maps to {{aqiLabel}}" },
+          { "text": "Outdoor activity is directly affected by particulate load", "when": { "aqi": { "gte": 100 } } },
+          { "text": "Rain is washing out particulates, keeping AQI favourable", "when": { "aqi": { "lt": 80 } } }
+        ]
+      }
+    },
+    {
+      "id": "runner-sunrise",
+      "personas": ["runner"],
+      "label": "Sunrise",
+      "icon": "sunrise",
+      "type": "stat",
+      "unit": "",
+      "size": "normal",
+      "accent": "#f59e0b",
+      "source": "Astronomical almanac",
+      "compute": { "kind": "astro", "field": "sunrise" },
+      "why": {
+        "headline": "Sunrise anchors the highest-quality running window of the day.",
+        "confidence": 99,
+        "factors": [
+          { "text": "User persona is {{persona}} — dawn runs score best" },
+          { "text": "Sunrise for {{location}} is {{sunrise}} local time" },
+          { "text": "Air quality is at its daily minimum around {{sunrise}}", "when": { "aqi": { "gte": 80 } } }
+        ]
+      }
+    },
+    {
+      "id": "runner-wind",
+      "personas": ["runner"],
+      "label": "Wind Load",
+      "icon": "gauge",
+      "type": "band",
+      "unit": " km/h",
+      "size": "normal",
+      "accent": "#38bdf8",
+      "source": "IMD surface station",
+      "compute": { "kind": "band", "metric": "wind", "bandKey": "wind" },
+      "why": {
+        "headline": "Wind drives convective cooling and, above 25 km/h, running economy loss.",
+        "confidence": 91,
+        "factors": [
+          { "text": "User persona is {{persona}} — headwind cost is tracked" },
+          { "text": "Sustained wind is {{wind}} km/h ({{windLabel}})" },
+          { "text": "Gusts above 25 km/h reduce pace by 4–7% for a {{persona}}", "when": { "wind": { "gte": 25 } } }
+        ]
+      }
+    },
+    {
+      "id": "runner-uv",
+      "personas": ["runner"],
+      "label": "UV Exposure",
+      "icon": "sun-medium",
+      "type": "band",
+      "unit": " UV",
+      "size": "normal",
+      "accent": "#f97316",
+      "source": "CPCB UV index model",
+      "compute": { "kind": "band", "metric": "uv", "bandKey": "uv" },
+      "why": {
+        "headline": "UV sets the safe duration of a run before skin damage.",
+        "confidence": 93,
+        "factors": [
+          { "text": "User persona is {{persona}} — prolonged skin exposure" },
+          { "text": "UV index is {{uv}} ({{uvLabel}}) at {{timeOfDayLabel}}" },
+          { "text": "Time of day {{timeOfDayLabel}} adds {{timeOfDayNote}}", "when": { "uv": { "gte": 5 } } }
+        ]
+      }
+    },
+    {
+      "id": "runner-window",
+      "personas": ["runner"],
+      "label": "Best Run Window",
+      "icon": "timer",
+      "type": "advisory",
+      "unit": "",
+      "size": "wide",
+      "accent": "#6366f1",
+      "source": "Mausam Window Optimiser v1.4",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "storm-block",
+            "when": { "condition": ["thunderstorm", "heavy-rain"] },
+            "value": "Blocked",
+            "label": "No safe window",
+            "detail": "{{conditionLabel}} with {{wind}} km/h wind. Lightning and flash flooding make outdoor running unsafe.",
+            "tone": "danger",
+            "confidence": 98
+          },
+          {
+            "id": "air-block",
+            "when": { "aqi": { "gte": 200 } },
+            "value": "Indoor only",
+            "label": "Air quality hazard",
+            "detail": "AQI {{aqi}} ({{aqiLabel}}). Run on a treadmill or wait for ventilation to improve.",
+            "tone": "danger",
+            "confidence": 96
+          },
+          {
+            "id": "rain-block",
+            "when": { "rainProbability": { "gte": 60 } },
+            "value": "Postpone",
+            "label": "Rain likely",
+            "detail": "{{rainProbability}}% rain probability. Shift the session to avoid soaked surfaces and lightning risk.",
+            "tone": "warning",
+            "confidence": 94
+          },
+          {
+            "id": "heat-shift",
+            "when": { "temperature": { "gte": 35 } },
+            "value": "{{sunrise}} + 20 min",
+            "label": "Move to dawn",
+            "detail": "{{temperature}}°C is unsafe for effort running. Run at first light instead.",
+            "tone": "warning",
+            "confidence": 95
+          },
+          {
+            "id": "uv-shift",
+            "when": { "uv": { "gte": 9 }, "timeOfDay": ["afternoon"] },
+            "value": "{{sunrise}} + 25 min",
+            "label": "High UV at {{timeOfDayLabel}}",
+            "detail": "UV {{uv}} at {{timeOfDayLabel}}. Sunscreen mandatory and shade breaks every 20 minutes.",
+            "tone": "warning",
+            "confidence": 92
+          },
+          {
+            "id": "quality",
+            "when": { "aqi": { "lt": 80 } },
+            "value": "{{idealWindow}}",
+            "label": "Ideal window",
+            "detail": "AQI {{aqi}}, {{temperature}}°C, {{rainProbability}}% rain. Optimal conditions for {{persona}}.",
+            "tone": "success",
+            "confidence": 96
+          }
+        ],
+        "fallback": {
+          "id": "acceptable",
+          "when": {},
+          "value": "Short session",
+          "label": "Acceptable with care",
+          "detail": "Conditions are mixed. Keep the effort easy and re-check AQI before the session.",
+          "tone": "info",
+          "confidence": 90
+        }
+      },
+      "why": {
+        "headline": "The best window is the first time slot that clears every hard constraint.",
+        "confidence": 93,
+        "factors": [
+          { "text": "User persona is {{persona}} with an ideal window of {{idealWindow}}" },
+          { "text": "Hard block: {{conditionLabel}} produces lightning and flooding risk", "when": { "condition": ["thunderstorm", "heavy-rain"] } },
+          { "text": "Hard block: AQI {{aqi}} exceeds the safe exposure limit", "when": { "aqi": { "gte": 200 } } },
+          { "text": "Soft block: {{rainProbability}}% rain probability", "when": { "rainProbability": { "gte": 60 } } },
+          { "text": "Soft block: {{temperature}}°C heat stress", "when": { "temperature": { "gte": 35 } } },
+          { "text": "Sunrise for {{location}} is {{sunrise}}" }
+        ]
+      }
+    },
+
+    {
+      "id": "farmer-rain",
+      "personas": ["farmer"],
+      "label": "Rain Prediction",
+      "icon": "cloud-rain",
+      "type": "advisory",
+      "unit": "",
+      "size": "wide",
+      "accent": "#1d4ed8",
+      "source": "IMD nowcast + HRRR ensemble",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "very-heavy",
+            "when": { "rainProbability": { "gte": 90 } },
+            "value": "{{rainProbability}}%",
+            "label": "Heavy irrigation event",
+            "detail": "Sustained {{precipitation}} mm expected. Drainage channels must be cleared before the next cycle.",
+            "tone": "danger",
+            "confidence": 96
+          },
+          {
+            "id": "likely",
+            "when": { "rainProbability": { "gte": 55 } },
+            "value": "{{rainProbability}}%",
+            "label": "Rain expected",
+            "detail": "Useful rainfall likely within 6 hours. Delay spraying and schedule irrigation instead.",
+            "tone": "info",
+            "confidence": 93
+          },
+          {
+            "id": "scattered",
+            "when": { "rainProbability": { "gte": 25 } },
+            "value": "{{rainProbability}}%",
+            "label": "Scattered showers",
+            "detail": "Isolated spells possible. Complete chemical application before {{sunrise}} + 3 hours.",
+            "tone": "info",
+            "confidence": 88
+          },
+          {
+            "id": "dry",
+            "when": { "rainProbability": { "lt": 25 } },
+            "value": "{{rainProbability}}%",
+            "label": "Dry spell",
+            "detail": "No meaningful rainfall expected. Plan irrigation and soil sampling today.",
+            "tone": "success",
+            "confidence": 91
+          }
+        ],
+        "fallback": {
+          "id": "unknown",
+          "when": {},
+          "value": "{{rainProbability}}%",
+          "label": "Low confidence",
+          "detail": "Forecast spread is wide for this block. Re-check before committing field work.",
+          "tone": "info",
+          "confidence": 72
+        }
+      },
+      "why": {
+        "headline": "Irrigation and spray decisions depend on rainfall, not on the calendar.",
+        "confidence": 95,
+        "factors": [
+          { "text": "User persona is {{persona}} — field operations depend on rain" },
+          { "text": "Rain probability is {{rainProbability}}% under {{conditionLabel}}" },
+          { "text": "Accumulation of {{precipitation}} mm raises waterlogging risk", "when": { "precipitation": { "gte": 8 } } },
+          { "text": "Humidity {{humidity}}% slows drying for spray operations", "when": { "humidity": { "gte": 75 } } }
+        ]
+      }
+    },
+    {
+      "id": "farmer-soil",
+      "personas": ["farmer"],
+      "label": "Soil Moisture",
+      "icon": "droplet",
+      "type": "gauge",
+      "unit": "%",
+      "size": "normal",
+      "accent": "#0ea5a4",
+      "source": "IMD rainfall + soil model v3",
+      "compute": {
+        "kind": "score",
+        "base": 34,
+        "factors": [
+          { "metric": "rainProbability", "weight": 32, "low": 0, "high": 100 },
+          { "metric": "humidity", "weight": 20, "low": 20, "high": 95 },
+          { "metric": "temperature", "weight": -24, "low": 10, "high": 40 }
+        ]
+      },
+      "why": {
+        "headline": "Soil moisture is reconstructed from rainfall, humidity and evapotranspiration.",
+        "confidence": 87,
+        "factors": [
+          { "text": "User persona is {{persona}} — irrigation scheduling" },
+          { "text": "Rainfall signal {{rainProbability}}% adds stored water" },
+          { "text": "Evapotranspiration demand rises with {{temperature}}°C" },
+          { "text": "Confidence is lower than other widgets because soil type is unknown" }
+        ]
+      }
+    },
+    {
+      "id": "farmer-crop",
+      "personas": ["farmer"],
+      "label": "Crop Advisory",
+      "icon": "sprout",
+      "type": "advisory",
+      "unit": "",
+      "size": "wide",
+      "accent": "#16a34a",
+      "source": "ICAR agronomy ruleset",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "frost",
+            "when": { "temperature": { "lte": 4 } },
+            "value": "Frost protocol",
+            "label": "Protect standing crop",
+            "detail": "{{temperature}}°C with clear skies. Light irrigation tonight raises canopy temperature by 1.5–2 °C.",
+            "tone": "danger",
+            "confidence": 94
+          },
+          {
+            "id": "waterlogged",
+            "when": { "rainProbability": { "gte": 80 } },
+            "value": "Drainage first",
+            "label": "Waterlogging risk",
+            "detail": "{{precipitation}} mm expected. Open field drains and delay nitrogen application by 72 hours.",
+            "tone": "warning",
+            "confidence": 92
+          },
+          {
+            "id": "heat-stress",
+            "when": { "temperature": { "gte": 38 } },
+            "value": "Irrigate at dawn",
+            "label": "Heat stress",
+            "detail": "{{temperature}}°C accelerates evaporation. Shift the irrigation block to the {{idealWindow}} window.",
+            "tone": "warning",
+            "confidence": 93
+          },
+          {
+            "id": "spray-ok",
+            "when": { "wind": { "lt": 15 }, "rainProbability": { "lt": 30 } },
+            "value": "Spray window open",
+            "label": "Favourable conditions",
+            "detail": "Wind {{wind}} km/h and {{rainProbability}}% rain give a clean application window of about 4 hours.",
+            "tone": "success",
+            "confidence": 91
+          }
+        ],
+        "fallback": {
+          "id": "hold",
+          "when": {},
+          "value": "Hold operations",
+          "label": "Conditions marginal",
+          "detail": "Drift or wash-off risk is elevated. Wait for a calmer, drier block.",
+          "tone": "info",
+          "confidence": 85
+        }
+      },
+      "why": {
+        "headline": "Crop guidance maps live weather onto agronomy thresholds.",
+        "confidence": 90,
+        "factors": [
+          { "text": "User persona is {{persona}} — standing crop at risk" },
+          { "text": "Temperature {{temperature}}°C compared with frost and heat thresholds" },
+          { "text": "Wind {{wind}} km/h determines spray drift safety", "when": { "wind": { "gte": 15 } } },
+          { "text": "Rain {{rainProbability}}% would wash off applied chemical", "when": { "rainProbability": { "gte": 30 } } }
+        ]
+      }
+    },
+    {
+      "id": "farmer-frost",
+      "personas": ["farmer"],
+      "label": "Frost Alert",
+      "icon": "snowflake",
+      "type": "advisory",
+      "unit": "",
+      "size": "normal",
+      "accent": "#6366f1",
+      "source": "IMD minimum temperature nowcast",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "severe",
+            "when": { "temperature": { "lte": 2 } },
+            "value": "Severe frost",
+            "label": "Active frost risk",
+            "detail": "{{temperature}}°C with {{conditionLabel}} skies. Germination and tuber damage likely.",
+            "tone": "danger",
+            "confidence": 95
+          },
+          {
+            "id": "watch",
+            "when": { "temperature": { "lte": 6 } },
+            "value": "Frost watch",
+            "label": "Monitor tonight",
+            "detail": "Overnight minimum near {{temperature}}°C. Light irrigation tonight is the cheapest insurance.",
+            "tone": "warning",
+            "confidence": 90
+          },
+          {
+            "id": "clear",
+            "when": {},
+            "value": "No risk",
+            "label": "Frost free",
+            "detail": "Minimum temperature {{temperature}}°C stays well above the frost threshold.",
+            "tone": "success",
+            "confidence": 92
+          }
+        ],
+        "fallback": {
+          "id": "unknown",
+          "when": {},
+          "value": "No risk",
+          "label": "Frost free",
+          "detail": "Minimum temperature {{temperature}}°C stays well above the frost threshold.",
+          "tone": "success",
+          "confidence": 92
+        }
+      },
+      "why": {
+        "headline": "Frost risk is evaluated from minimum temperature and clear-sky conditions.",
+        "confidence": 93,
+        "factors": [
+          { "text": "User persona is {{persona}} — frost damages standing crops" },
+          { "text": "Temperature is {{temperature}}°C at {{timeOfDayLabel}}" },
+          { "text": "Clear skies maximise radiative cooling overnight", "when": { "condition": ["clear"] } },
+          { "text": "Cloud cover of {{cloudCover}}% will moderate overnight cooling", "when": { "cloudCover": { "gte": 70 } } }
+        ]
+      }
+    },
+    {
+      "id": "farmer-spray",
+      "personas": ["farmer"],
+      "label": "Spray Window",
+      "icon": "wind",
+      "type": "advisory",
+      "unit": "",
+      "size": "normal",
+      "accent": "#38bdf8",
+      "source": "IMD surface wind + dew point",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "drift",
+            "when": { "wind": { "gte": 20 } },
+            "value": "Drift risk",
+            "label": "Do not spray",
+            "detail": "Wind {{wind}} km/h will carry droplets outside the target block and off the field.",
+            "tone": "danger",
+            "confidence": 95
+          },
+          {
+            "id": "wash",
+            "when": { "rainProbability": { "gte": 55 } },
+            "value": "Wash-off risk",
+            "label": "Rain after application",
+            "detail": "{{rainProbability}}% rain within 6 hours. Applications need at least {{rainLabel}} rain-free hours.",
+            "tone": "warning",
+            "confidence": 91
+          },
+          {
+            "id": "open",
+            "when": { "wind": { "lt": 15 }, "rainProbability": { "lt": 30 } },
+            "value": "Open",
+            "label": "Safe to apply",
+            "detail": "Wind {{wind}} km/h, {{rainProbability}}% rain. Suitable for a 4 hour application block.",
+            "tone": "success",
+            "confidence": 92
+          }
+        ],
+        "fallback": {
+          "id": "marginal",
+          "when": {},
+          "value": "Marginal",
+          "label": "Use low-drift nozzles",
+          "detail": "Conditions are borderline. Reduce pressure and choose coarse droplet nozzles.",
+          "tone": "info",
+          "confidence": 86
+        }
+      },
+      "why": {
+        "headline": "Spray safety depends on wind speed and the dry window after application.",
+        "confidence": 92,
+        "factors": [
+          { "text": "User persona is {{persona}} — chemical application in progress" },
+          { "text": "Wind {{wind}} km/h ({{windLabel}})" },
+          { "text": "Rain {{rainProbability}}% inside the drying window", "when": { "rainProbability": { "gte": 30 } } }
+        ]
+      }
+    },
+    {
+      "id": "farmer-irrigation",
+      "personas": ["farmer"],
+      "label": "Irrigation Need",
+      "icon": "droplets",
+      "type": "gauge",
+      "unit": "%",
+      "size": "normal",
+      "accent": "#0ea5e4",
+      "source": "IMD rainfall + ET₀ model",
+      "compute": {
+        "kind": "score",
+        "base": 30,
+        "factors": [
+          { "metric": "rainProbability", "weight": -40, "low": 0, "high": 100 },
+          { "metric": "temperature", "weight": 32, "low": 15, "high": 45 },
+          { "metric": "humidity", "weight": -14, "low": 20, "high": 90 },
+          { "metric": "wind", "weight": -10, "low": 5, "high": 40 }
+        ]
+      },
+      "why": {
+        "headline": "Irrigation need is the gap between crop demand and expected supply.",
+        "confidence": 86,
+        "factors": [
+          { "text": "User persona is {{persona}} — irrigation scheduling" },
+          { "text": "Crop demand rises with {{temperature}}°C and {{wind}} km/h wind" },
+          { "text": "Expected supply {{rainProbability}}% rainfall and {{humidity}}% humidity", "when": { "rainProbability": { "gte": 20 } } }
+        ]
+      }
+    },
+
+    {
+      "id": "traveler-destination",
+      "personas": ["traveler"],
+      "label": "Destination Weather",
+      "icon": "map-pin",
+      "type": "advisory",
+      "unit": "",
+      "size": "wide",
+      "accent": "#0ea5a4",
+      "source": "IMD + global GFS blend",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "dest-severe",
+            "when": { "condition": ["thunderstorm", "heavy-rain", "snow"] },
+            "value": "Severe",
+            "label": "Destination disrupted",
+            "detail": "{{destination}} expects {{destinationNote}} Expect delays on arrival and keep buffer days.",
+            "tone": "danger",
+            "confidence": 90
+          },
+          {
+            "id": "dest-haze",
+            "when": { "condition": ["haze", "fog"] },
+            "value": "Degraded",
+            "label": "Visibility restricted",
+            "detail": "{{destination}} has suspended dust. Flights may face delay due to low visibility.",
+            "tone": "warning",
+            "confidence": 88
+          },
+          {
+            "id": "dest-clear",
+            "when": {},
+            "value": "Good",
+            "label": "Destination favourable",
+            "detail": "{{destination}} is comfortable on arrival. {{destinationNote}}",
+            "tone": "success",
+            "confidence": 91
+          }
+        ],
+        "fallback": {
+          "id": "dest-unknown",
+          "when": {},
+          "value": "Good",
+          "label": "Destination favourable",
+          "detail": "{{destination}} is comfortable on arrival. {{destinationNote}}",
+          "tone": "success",
+          "confidence": 91
+        }
+      },
+      "why": {
+        "headline": "Arrival conditions are pulled from the destination linked to the origin city.",
+        "confidence": 84,
+        "factors": [
+          { "text": "User persona is {{persona}} — arrival conditions change packing" },
+          { "text": "Origin {{location}} linked to destination {{destination}}" },
+          { "text": "Destination note: {{destinationNote}}" },
+          { "text": "Destination model confidence is lower than the local observation" }
+        ]
+      }
+    },
+    {
+      "id": "traveler-risk",
+      "personas": ["traveler"],
+      "label": "Travel Risk",
+      "icon": "shield-alert",
+      "type": "gauge",
+      "unit": "/100",
+      "size": "normal",
+      "accent": "#f59e0b",
+      "source": "Mausam Disruption Model v1.2",
+      "compute": {
+        "kind": "score",
+        "base": 22,
+        "factors": [
+          { "metric": "rainProbability", "weight": 32, "low": 10, "high": 95 },
+          { "metric": "visibility", "weight": 26, "low": 2, "high": 14 },
+          { "metric": "wind", "weight": 22, "low": 10, "high": 50 },
+          { "metric": "temperature", "weight": 14, "low": 30, "high": 46 },
+          { "metric": "aqi", "weight": 12, "low": 80, "high": 250 }
+        ]
+      },
+      "why": {
+        "headline": "Disruption risk is a probability of delay, not a severity score.",
+        "confidence": 89,
+        "factors": [
+          { "text": "User persona is {{persona}} — itinerary disruption is the cost" },
+          { "text": "Rain probability {{rainProbability}}% under {{conditionLabel}}" },
+          { "text": "Visibility {{visibility}} km affects road and approach segments", "when": { "visibility": { "lt": 6 } } },
+          { "text": "Wind {{wind}} km/h can ground flights and close bridges", "when": { "wind": { "gte": 30 } } }
+        ]
+      }
+    },
+    {
+      "id": "traveler-packing",
+      "personas": ["traveler"],
+      "label": "Packing Suggestion",
+      "icon": "briefcase",
+      "type": "list",
+      "unit": "",
+      "size": "normal",
+      "accent": "#6366f1",
+      "source": "Mausam Packing Advisor v1.0",
+      "compute": {
+        "kind": "list",
+        "max": 4,
+        "items": [
+          { "id": "rain-shell", "text": "Waterproof shell and quick-dry base layer", "when": { "rainProbability": { "gte": 30 } } },
+          { "id": "heat", "text": "Electrolytes and a wide-brim hat for {{temperature}}°C", "when": { "temperature": { "gte": 30 } } },
+          { "id": "layer", "text": "Insulated layer for {{feelsLike}}°C mornings", "when": { "temperature": { "lte": 18 } } },
+          { "id": "mask", "text": "N95 mask — destination AQI is elevated", "when": { "aqi": { "gte": 120 } } },
+          { "id": "sunscreen", "text": "SPF 50 sunscreen and UV lip balm", "when": { "uv": { "gte": 7 } } },
+          { "id": "shoes", "text": "Waterproof trail shoes with grip", "when": { "rainProbability": { "gte": 55 } } },
+          { "id": "goggles", "text": "Sunglasses for {{wind}} km/h wind", "when": { "wind": { "gte": 25 } } }
+        ]
+      },
+      "why": {
+        "headline": "Each item is attached to the specific weather trigger that justifies it.",
+        "confidence": 88,
+        "factors": [
+          { "text": "User persona is {{persona}} — packing list is personalised" },
+          { "text": "Rain {{rainProbability}}% triggers waterproof layers" },
+          { "text": "AQI {{aqi}} triggers a respirator", "when": { "aqi": { "gte": 120 } } },
+          { "text": "UV {{uv}} triggers sun protection", "when": { "uv": { "gte": 7 } } }
+        ]
+      }
+    },
+    {
+      "id": "traveler-departure",
+      "personas": ["traveler"],
+      "label": "Departure Window",
+      "icon": "send",
+      "type": "advisory",
+      "unit": "",
+      "size": "normal",
+      "accent": "#2563eb",
+      "source": "Mausam Window Optimiser v1.4",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "travel-now",
+            "when": { "visibility": { "gte": 8 }, "rainProbability": { "lt": 40 }, "wind": { "lt": 30 } },
+            "value": "Leave now",
+            "label": "Clear corridor",
+            "detail": "Visibility {{visibility}} km, rain {{rainProbability}}%. Cleanest window for the full itinerary.",
+            "tone": "success",
+            "confidence": 92
+          },
+          {
+            "id": "travel-delay",
+            "when": { "visibility": { "lt": 3 } },
+            "value": "Delay 2 hours",
+            "label": "Low visibility",
+            "detail": "Visibility {{visibility}} km. Road approach and approach lighting are compromised.",
+            "tone": "warning",
+            "confidence": 90
+          },
+          {
+            "id": "travel-storm",
+            "when": { "condition": ["thunderstorm", "heavy-rain"] },
+            "value": "Postpone",
+            "label": "Severe weather on route",
+            "detail": "{{conditionLabel}} with {{wind}} km/h. Delay the leg rather than risk the corridor.",
+            "tone": "danger",
+            "confidence": 95
+          }
+        ],
+        "fallback": {
+          "id": "travel-caution",
+          "when": {},
+          "value": "Proceed with caution",
+          "label": "Marginal conditions",
+          "detail": "Rain {{rainProbability}}% and wind {{wind}} km/h. Build in extra travel time.",
+          "tone": "info",
+          "confidence": 85
+        }
+      },
+      "why": {
+        "headline": "Departure timing is optimised against visibility, rain and wind.",
+        "confidence": 89,
+        "factors": [
+          { "text": "User persona is {{persona}} — departure time drives the whole day" },
+          { "text": "Visibility {{visibility}} km under {{conditionLabel}}" },
+          { "text": "Rain {{rainProbability}}% probability at {{timeOfDayLabel}}" }
+        ]
+      }
+    },
+    {
+      "id": "traveler-visibility",
+      "personas": ["traveler"],
+      "label": "Road Visibility",
+      "icon": "eye",
+      "type": "band",
+      "unit": " km",
+      "size": "normal",
+      "accent": "#38bdf8",
+      "source": "IMD visibility nowcast",
+      "compute": { "kind": "band", "metric": "visibility", "bandKey": "visibility" },
+      "why": {
+        "headline": "Visibility is the single biggest predictor of travel delay.",
+        "confidence": 94,
+        "factors": [
+          { "text": "User persona is {{persona}} — corridor risk" },
+          { "text": "Visibility is {{visibility}} km ({{visibilityLabel}})" },
+          { "text": "Humidity {{humidity}}% promotes fog formation overnight", "when": { "humidity": { "gte": 88 } } }
+        ]
+      }
+    },
+
+    {
+      "id": "parent-commute",
+      "personas": ["parent"],
+      "label": "School Commute",
+      "icon": "school",
+      "type": "advisory",
+      "unit": "",
+      "size": "wide",
+      "accent": "#db2777",
+      "source": "Mausam Family Safety Engine v1.1",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "commute-severe",
+            "when": { "visibility": { "lt": 2 } },
+            "value": "Travel with caution",
+            "label": "Visibility hazard",
+            "detail": "Visibility {{visibility}} km. Allow double the usual travel time and avoid the school gate rush.",
+            "tone": "danger",
+            "confidence": 94
+          },
+          {
+            "id": "commute-rain",
+            "when": { "rainProbability": { "gte": 60 } },
+            "value": "Take the rain route",
+            "label": "Wet commute",
+            "detail": "{{rainProbability}}% rain. Puddles and slippery tiles around the school gate.",
+            "tone": "warning",
+            "confidence": 92
+          },
+          {
+            "id": "commute-heat",
+            "when": { "temperature": { "gte": 36 } },
+            "value": "Depart by {{idealWindow}}",
+            "label": "Peak heat commute",
+            "detail": "{{temperature}}°C at {{timeOfDayLabel}}. Water bottles and a wet towel are essential.",
+            "tone": "warning",
+            "confidence": 91
+          },
+          {
+            "id": "commute-clear",
+            "when": { "aqi": { "lte": 100 } },
+            "value": "Comfortable",
+            "label": "Good conditions",
+            "detail": "AQI {{aqi}}, {{temperature}}°C, visibility {{visibility}} km. A normal school day.",
+            "tone": "success",
+            "confidence": 93
+          }
+        ],
+        "fallback": {
+          "id": "commute-air",
+          "when": {},
+          "value": "Mask recommended",
+          "label": "Air quality elevated",
+          "detail": "AQI {{aqi}} ({{aqiLabel}}). Children with asthma should carry a mask.",
+          "tone": "info",
+          "confidence": 90
+        }
+      },
+      "why": {
+        "headline": "The commute verdict weighs visibility, rain, heat and air quality for children.",
+        "confidence": 93,
+        "factors": [
+          { "text": "User persona is {{persona}} — child safety outranks convenience" },
+          { "text": "Visibility {{visibility}} km at {{timeOfDayLabel}}" },
+          { "text": "Rain {{rainProbability}}% affects the school gate", "when": { "rainProbability": { "gte": 40 } } },
+          { "text": "AQI {{aqi}} affects children more quickly than adults", "when": { "aqi": { "gte": 120 } } }
+        ]
+      }
+    },
+    {
+      "id": "parent-rain",
+      "personas": ["parent"],
+      "label": "Rain Alert",
+      "icon": "umbrella",
+      "type": "advisory",
+      "unit": "",
+      "size": "normal",
+      "accent": "#2563eb",
+      "source": "IMD nowcast",
+      "compute": {
+        "kind": "state",
+        "states": [
+          {
+            "id": "rain-heavy",
+            "when": { "rainProbability": { "gte": 75 } },
+            "value": "{{rainProbability}}%",
+            "label": "School may be affected",
+            "detail": "{{precipitation}} mm expected. Keep an indoor play plan ready for {{dayLabel}}.",
+            "tone": "danger",
+            "confidence": 93
+          },
+          {
+            "id": "rain-likely",
+            "when": { "rainProbability": { "gte": 40 } },
+            "value": "{{rainProbability}}%",
+            "label": "Rain likely",
+            "detail": "Pack rain gear for both children. Play stays indoors if it persists.",
+            "tone": "warning",
+            "confidence": 90
+          },
+          {
+            "id": "rain-dry",
+            "when": {},
+            "value": "{{rainProbability}}%",
+            "label": "Dry day",
+            "detail": "Outdoor play is on. Apply sunscreen — UV is {{uv}}.",
+            "tone": "success",
+            "confidence": 92
+          }
+        ],
+        "fallback": {
+          "id": "rain-unknown",
+          "when": {},
+          "value": "{{rainProbability}}%",
+          "label": "Dry day",
+          "detail": "Outdoor play is on. Apply sunscreen — UV is {{uv}}.",
+          "tone": "success",
+          "confidence": 92
+        }
+      },
+      "why": {
+        "headline": "Rain nowcast decides indoor versus outdoor play.",
+        "confidence": 91,
+        "factors": [
+          { "text": "User persona is {{persona}} — rain cancels outdoor plans" },
+          { "text": "Rain probability {{rainProbability}}% with {{conditionLabel}}" },
+          { "text": "Accumulation {{precipitation}} mm implies wet ground", "when": { "precipitation": { "gte": 3 } } }
+        ]
+      }
+    },
+    {
+      "id": "parent-visibility",
+      "personas": ["parent"],
+      "label": "Visibility",
+      "icon": "eye",
+      "type": "band",
+      "unit": " km",
+      "size": "normal",
+      "accent": "#0ea5a4",
+      "source": "IMD visibility nowcast",
+      "compute": { "kind": "band", "metric": "visibility", "bandKey": "visibility" },
+      "why": {
+        "headline": "Children are taller than traffic infrastructure, so visibility matters more.",
+        "confidence": 95,
+        "factors": [
+          { "text": "User persona is {{persona}} — school zone safety" },
+          { "text": "Visibility is {{visibility}} km ({{visibilityLabel}})" },
+          { "text": "Fog or haze conditions are active", "when": { "visibility": { "lt": 4 } } }
+        ]
+      }
+    },
+    {
+      "id": "parent-play",
+      "personas": ["parent"],
+      "label": "Play Safe Index",
+      "icon": "smile",
+      "type": "gauge",
+      "unit": "/100",
+      "size": "normal",
+      "accent": "#f59e0b",
+      "source": "Mausam Activity Scorer v2.1",
+      "compute": {
+        "kind": "score",
+        "base": 82,
+        "factors": [
+          { "metric": "temperature", "weight": 26, "optimum": 24, "tolerance": 16 },
+          { "metric": "aqi", "weight": -22, "low": 40, "high": 200 },
+          { "metric": "uv", "weight": -20, "low": 4, "high": 11 },
+          { "metric": "rainProbability", "weight": -18, "low": 20, "high": 90 },
+          { "metric": "wind", "weight": -8, "low": 10, "high": 40 }
+        ]
+      },
+      "why": {
+        "headline": "Play safety weights heat tolerance and air quality above all else.",
+        "confidence": 92,
+        "factors": [
+          { "text": "User persona is {{persona}} — children are heat sensitive" },
+          { "text": "Temperature {{temperature}}°C compared with the child-safe band" },
+          { "text": "UV {{uv}} requires shade and sunscreen", "when": { "uv": { "gte": 6 } } },
+          { "text": "Rain {{rainProbability}}% moves play indoors", "when": { "rainProbability": { "gte": 40 } } }
+        ]
+      }
+    },
+    {
+      "id": "parent-evening",
+      "personas": ["parent"],
+      "label": "Evening Check",
+      "icon": "sunset",
+      "type": "stat",
+      "unit": "",
+      "size": "normal",
+      "accent": "#8b5cf6",
+      "source": "Astronomical almanac + IMD nowcast",
+      "compute": { "kind": "astro", "field": "sunset" },
+      "why": {
+        "headline": "Sunset defines the safe outdoor boundary for evening play.",
+        "confidence": 96,
+        "factors": [
+          { "text": "User persona is {{persona}} — evening outdoor time" },
+          { "text": "Sunset for {{location}} is {{sunset}} local time" },
+          { "text": "Outdoor play should end 30 minutes before {{sunset}}", "when": { "uv": { "gte": 5 } } }
+        ]
+      }
+    },
+
+    {
+      "id": "health-aqi",
+      "personas": ["health"],
+      "label": "Air Quality",
+      "icon": "wind",
+      "type": "band",
+      "unit": " AQI",
+      "size": "wide",
+      "accent": "#7c3aed",
+      "source": "CPCB AQI station feed",
+      "compute": { "kind": "band", "metric": "aqi", "bandKey": "aqi" },
+      "why": {
+        "headline": "Respiratory load is the primary input for a health-conscious profile.",
+        "confidence": 98,
+        "factors": [
+          { "text": "User persona is {{persona}} — respiratory exposure is the goal" },
+          { "text": "AQI is {{aqi}} which maps to {{aqiLabel}}" },
+          { "text": "Health advisory: {{aqiAdvice}}" },
+          { "text": "Outdoor activity is affected at this level", "when": { "aqi": { "gte": 100 } } }
+        ]
+      }
+    },
+    {
+      "id": "health-pollen",
+      "personas": ["health"],
+      "label": "Pollen Load",
+      "icon": "flower",
+      "type": "gauge",
+      "unit": "/100",
+      "size": "normal",
+      "accent": "#db2777",
+      "source": "Pollen index model v1.3",
+      "compute": {
+        "kind": "score",
+        "base": 26,
+        "factors": [
+          { "metric": "wind", "weight": 30, "low": 5, "high": 35 },
+          { "metric": "humidity", "weight": 14, "low": 30, "high": 85 },
+          { "metric": "temperature", "weight": 24, "low": 12, "high": 34 },
+          { "metric": "rainProbability", "weight": -28, "low": 20, "high": 95 }
+        ]
+      },
+      "why": {
+        "headline": "Pollen load peaks on warm, windy, dry days and collapses in rain.",
+        "confidence": 81,
+        "factors": [
+          { "text": "User persona is {{persona}} — allergy management" },
+          { "text": "Wind {{wind}} km/h lifts airborne pollen" },
+          { "text": "Rain {{rainProbability}}% suppresses pollen release", "when": { "rainProbability": { "gte": 40 } } },
+          { "text": "Pollen is modelled, not measured, so confidence is lower" }
+        ]
+      }
+    },
+    {
+      "id": "health-humidity",
+      "personas": ["health"],
+      "label": "Humidity",
+      "icon": "droplets",
+      "type": "band",
+      "unit": "%",
+      "size": "normal",
+      "accent": "#0ea5e4",
+      "source": "IMD surface station",
+      "compute": { "kind": "band", "metric": "humidity", "bandKey": "humidity" },
+      "why": {
+        "headline": "Humidity drives sweat efficiency and mould or mite exposure.",
+        "confidence": 95,
+        "factors": [
+          { "text": "User persona is {{persona}} — hydration and airway comfort" },
+          { "text": "Relative humidity is {{humidity}}% ({{humidityLabel}})" },
+          { "text": "Feels-like temperature is {{feelsLike}}°C", "when": { "humidity": { "gte": 70 } } }
+        ]
+      }
+    },
+    {
+      "id": "health-uv",
+      "personas": ["health"],
+      "label": "UV Exposure",
+      "icon": "sun-medium",
+      "type": "band",
+      "unit": " UV",
+      "size": "normal",
+      "accent": "#f97316",
+      "source": "CPCB UV index model",
+      "compute": { "kind": "band", "metric": "uv", "bandKey": "uv" },
+      "why": {
+        "headline": "UV exposure drives skin cancer and photoaging risk over time.",
+        "confidence": 94,
+        "factors": [
+          { "text": "User persona is {{persona}} — cumulative exposure tracking" },
+          { "text": "UV index is {{uv}} ({{uvLabel}}) at {{timeOfDayLabel}}" },
+          { "text": "Time of day note: {{timeOfDayNote}}", "when": { "uv": { "gte": 5 } } }
+        ]
+      }
+    },
+    {
+      "id": "health-hydration",
+      "personas": ["health"],
+      "label": "Hydration Index",
+      "icon": "glass-water",
+      "type": "gauge",
+      "unit": "/100",
+      "size": "normal",
+      "accent": "#38bdf8",
+      "source": "Mausam Hydration Model v0.9",
+      "compute": {
+        "kind": "score",
+        "base": 52,
+        "factors": [
+          { "metric": "temperature", "weight": 34, "low": 18, "high": 42 },
+          { "metric": "humidity", "weight": -22, "low": 20, "high": 90 },
+          { "metric": "uv", "weight": 12, "low": 3, "high": 11 },
+          { "metric": "wind", "weight": 10, "low": 5, "high": 35 }
+        ]
+      },
+      "why": {
+        "headline": "Hydration need rises with temperature, sun and wind, and falls with humidity.",
+        "confidence": 86,
+        "factors": [
+          { "text": "User persona is {{persona}} — fluid balance" },
+          { "text": "Temperature {{temperature}}°C raises fluid loss" },
+          { "text": "Humidity {{humidity}}% reduces evaporative loss", "when": { "humidity": { "gte": 65 } } }
+        ]
+      }
+    },
+    {
+      "id": "health-respiratory",
+      "personas": ["health"],
+      "label": "Respiratory Risk",
+      "icon": "stethoscope",
+      "type": "gauge",
+      "unit": "/100",
+      "size": "wide",
+      "accent": "#0f766e",
+      "source": "Mausam Health Exposure Model v1.0",
+      "compute": {
+        "kind": "score",
+        "base": 18,
+        "factors": [
+          { "metric": "aqi", "weight": 62, "low": 30, "high": 300 },
+          { "metric": "humidity", "weight": 16, "low": 60, "high": 98 },
+          { "metric": "wind", "weight": 12, "low": 5, "high": 30 },
+          { "metric": "temperature", "weight": 10, "low": 32, "high": 45 }
+        ]
+      },
+      "why": {
+        "headline": "Respiratory risk is dominated by AQI with a humidity modifier.",
+        "confidence": 89,
+        "factors": [
+          { "text": "User persona is {{persona}} — airway protection" },
+          { "text": "AQI {{aqi}} carries 62% of the model weight" },
+          { "text": "Humidity {{humidity}}% amplifies airway irritation", "when": { "humidity": { "gte": 70 } } },
+          { "text": "{{aqiAdvice}}" }
+        ]
+      }
+    }
+  ]
+}

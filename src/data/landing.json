@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "title": "Mausam AI",
+    "description": "Personalised Weather Intelligence for every citizen, every crop and every journey.",
+    "edition": "Smart India Hackathon 2026 · Frontend Prototype"
+  },
+  "hero": {
+    "eyebrow": "Personalised Weather Intelligence",
+    "title": "Weather that knows",
+    "accent": "who you are",
+    "subtitle": "Mausam AI turns raw observations into persona-specific decisions — when to run, when to spray, when to travel, when to stay indoors. Every card explains exactly why it appeared.",
+    "primaryCta": "Launch Demo",
+    "secondaryCta": "Explore personas",
+    "badges": [
+      { "id": "explainable", "label": "Every card explains itself", "icon": "scan-eye" },
+      { "id": "persona", "label": "Five personas, five widget sets", "icon": "users" },
+      { "id": "offline", "label": "Runs entirely on local JSON", "icon": "hard-drive" }
+    ],
+    "livePanel": {
+      "title": "Live decision preview",
+      "hint": "Rendered from the same JSON contract the dashboard uses"
+    }
+  },
+  "problem": {
+    "eyebrow": "The problem",
+    "title": "Weather apps answer the wrong question",
+    "description": "A forecast tells you the temperature. It does not tell you whether to take the run, spray the field, or send the child to school. The last mile between a number and a decision is still manual.",
+    "points": [
+      {
+        "id": "generic",
+        "title": "One forecast for everyone",
+        "description": "A farmer, a marathoner and a parent get the identical screen for a completely different day.",
+        "icon": "copy-x"
+      },
+      {
+        "id": "fragmented",
+        "title": "Data is scattered across agencies",
+        "description": "IMD, CPCB and state departments publish separate feeds that never meet in one decision surface.",
+        "icon": "unplug"
+      },
+      {
+        "id": "opaque",
+        "title": "No explanation, no trust",
+        "description": "Alerts arrive as bare warnings. Citizens cannot tell why a decision was recommended or when it will change.",
+        "icon": "help-circle"
+      }
+    ]
+  },
+  "solution": {
+    "eyebrow": "The solution",
+    "title": "A decision layer above the forecast",
+    "description": "Mausam AI ingests the observation, resolves it against a persona profile, and outputs ranked actions with the reasoning attached. The same architecture scales from a school gate to an agricultural block.",
+    "bullets": [
+      { "id": "persona-first", "text": "Persona-first rendering — widgets, alerts and advice rebuild for the selected profile.", "icon": "users" },
+      { "id": "explainable", "text": "Explainability on every card: contributing factors, thresholds and confidence score.", "icon": "scan-eye" },
+      { "id": "composite-risk", "text": "Composite risk index weighted by hazard type, not a single weather number.", "icon": "gauge" },
+      { "id": "simulatable", "text": "A simulation layer lets judges test any scenario without touching a backend.", "icon": "sliders-horizontal" }
+    ],
+    "pillars": [
+      { "id": "ingest", "label": "Ingest", "value": "8", "description": "Normalised source feeds modelled in the data contract", "icon": "database" },
+      { "id": "resolve", "label": "Resolve", "value": "7", "description": "Environmental factors resolved per location and daypart", "icon": "compass" },
+      { "id": "reason", "label": "Reason", "value": "28", "description": "Persona-specific decision rules and widget scorers", "icon": "brain" },
+      { "id": "explain", "label": "Explain", "value": "100%", "description": "Of generated cards carry a reasoning trace", "icon": "search-check" }
+    ]
+  },
+  "features": {
+    "eyebrow": "Capabilities",
+    "title": "Built for judging, engineered for scale",
+    "description": "Every module is driven by structured JSON, so swapping the local files for API responses requires no UI change.",
+    "items": [
+      {
+        "id": "persona-engine",
+        "title": "Persona Engine",
+        "description": "Five personas — Runner, Farmer, Traveler, Parent, Health Conscious — each with a distinct widget set and rule base.",
+        "icon": "users"
+      },
+      {
+        "id": "live-simulation",
+        "title": "Live Simulation Panel",
+        "description": "Change persona, condition, city, daypart, temperature, AQI, humidity, rain, UV and wind. The dashboard re-solves instantly.",
+        "icon": "sliders-horizontal"
+      },
+      {
+        "id": "risk-meter",
+        "title": "Composite Risk Meter",
+        "description": "A weighted circular gauge reading Safe, Moderate, High or Extreme, decomposed into the factors that produced it.",
+        "icon": "gauge"
+      },
+      {
+        "id": "explainability",
+        "title": "Explainability Panel",
+        "description": "The 'why am I seeing this' layer: selected persona, the threshold crossed, the impact on the user and the confidence score.",
+        "icon": "scan-eye"
+      },
+      {
+        "id": "forecast",
+        "title": "7-Day Outlook",
+        "description": "Day-by-day cards with condition, range and rain probability, plus hourly trend charts for the selected daypart.",
+        "icon": "calendar-days"
+      },
+      {
+        "id": "alerts",
+        "title": "Ranked Alerts",
+        "description": "Official warnings and model-generated advisories merged into one severity-ranked feed with prescribed actions.",
+        "icon": "bell-ring"
+      }
+    ]
+  },
+  "flow": {
+    "eyebrow": "How it works",
+    "title": "Observation to decision in four steps",
+    "steps": [
+      { "id": "ingest", "title": "Ingest", "description": "Surface, satellite and air quality feeds normalised into one observation schema.", "icon": "database" },
+      { "id": "resolve", "title": "Resolve", "description": "Values are adjusted for location, daypart and the persona's own thresholds.", "icon": "compass" },
+      { "id": "reason", "title": "Reason", "description": "Rule bases rank actions and generate persona-specific widgets with confidence scores.", "icon": "brain" },
+      { "id": "deliver", "title": "Deliver", "description": "A single surface delivers the decision, the risk and the full reasoning trace.", "icon": "send" }
+    ]
+  },
+  "stats": [
+    { "id": "personas", "value": "5", "label": "Personas", "description": "Runner, Farmer, Traveler, Parent, Health", "icon": "users" },
+    { "id": "rules", "value": "28", "label": "Decision rules", "description": "Each with an attached explanation", "icon": "brain" },
+    { "id": "alerts", "value": "12", "label": "Alert templates", "description": "Severity ranked with prescribed actions", "icon": "bell-ring" },
+    { "id": "latency", "value": "<50ms", "label": "Re-solve time", "description": "Local JSON, no network round trip", "icon": "zap" }
+  ],
+  "cta": {
+    "title": "Open the live dashboard",
+    "description": "Pick a persona, drag a slider and watch the entire intelligence surface rebuild. Nothing leaves your browser.",
+    "button": "Launch Demo",
+    "note": "Frontend prototype · local JSON data only · no backend, no database, no API keys"
+  },
+  "footer": {
+    "note": "Mausam AI — personalised weather intelligence prototype. All data shown is static local JSON for demonstration purposes.",
+    "columns": [
+      { "id": "product", "title": "Product", "links": ["Dashboard", "Personas", "Simulation"] },
+      { "id": "modules", "title": "Modules", "links": ["Weather", "Alerts", "Analytics", "Maps"] },
+      { "id": "sources", "title": "Sources", "links": ["IMD", "CPCB", "GFS", "Local JSON"] }
+    ]
+  }
+}

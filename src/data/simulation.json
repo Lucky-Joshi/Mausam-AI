@@ -1,0 +1,343 @@
+{
+  "labels": {
+    "title": "Live Simulation Panel",
+    "description": "Change any input and the entire dashboard re-computes instantly from local JSON. No backend, no network calls.",
+    "context": "Context",
+    "atmosphere": "Atmosphere",
+    "reset": "Reset",
+    "randomize": "Randomize",
+    "live": "Live",
+    "scenarios": "Scenario presets",
+    "derived": "Auto-derived",
+    "derivedHint": "Computed from temperature, humidity, wind and time of day by the local engine."
+  },
+  "ranges": {
+    "temperature": { "min": -10, "max": 50, "step": 1 },
+    "humidity": { "min": 5, "max": 100, "step": 1 },
+    "aqi": { "min": 0, "max": 400, "step": 5 },
+    "rainProbability": { "min": 0, "max": 100, "step": 5 },
+    "uv": { "min": 0, "max": 12, "step": 1 },
+    "wind": { "min": 0, "max": 60, "step": 1 }
+  },
+  "units": {
+    "temperature": "°C",
+    "humidity": "%",
+    "aqi": "AQI",
+    "rainProbability": "%",
+    "uv": "UV",
+    "wind": " km/h"
+  },
+  "bands": {
+    "aqi": [
+      { "id": "good", "label": "Good", "color": "#10b981", "max": 50, "scaleMax": 320, "advice": "Air quality is satisfactory. Unrestricted outdoor activity." },
+      { "id": "moderate", "label": "Moderate", "color": "#f59e0b", "max": 100, "scaleMax": 320, "advice": "Acceptable for most people. Highly sensitive individuals should pace effort." },
+      { "id": "sensitive", "label": "Unhealthy for Sensitive", "color": "#f97316", "max": 150, "scaleMax": 320, "advice": "Asthma, COPD and cardiac patients should reduce prolonged exertion." },
+      { "id": "unhealthy", "label": "Unhealthy", "color": "#ef4444", "max": 200, "scaleMax": 320, "advice": "Everyone may feel effects. Move intense activity indoors." },
+      { "id": "very-unhealthy", "label": "Very Unhealthy", "color": "#a21caf", "max": 300, "scaleMax": 320, "advice": "Health alert. Avoid outdoor exertion entirely." },
+      { "id": "hazardous", "label": "Hazardous", "color": "#7f1d1d", "max": 400, "scaleMax": 320, "advice": "Emergency conditions. Stay indoors with closed windows." }
+    ],
+    "uv": [
+      { "id": "low", "label": "Low", "color": "#10b981", "max": 2, "scaleMax": 12, "advice": "No protection needed for short exposure." },
+      { "id": "moderate", "label": "Moderate", "color": "#f59e0b", "max": 5, "scaleMax": 12, "advice": "Use SPF 30 and seek shade around midday." },
+      { "id": "high", "label": "High", "color": "#f97316", "max": 7, "scaleMax": 12, "advice": "SPF 50, hat and sunglasses. Limit midday exposure." },
+      { "id": "very-high", "label": "Very High", "color": "#ef4444", "max": 10, "scaleMax": 12, "advice": "Cover skin, avoid 10:00 – 16:00 outdoors." },
+      { "id": "extreme", "label": "Extreme", "color": "#7f1d1d", "max": 13, "scaleMax": 12, "advice": "Unprotected skin burns in under 15 minutes. Stay indoors." }
+    ],
+    "humidity": [
+      { "id": "dry", "label": "Dry", "color": "#f59e0b", "max": 30, "scaleMax": 100, "advice": "Increase water intake; static and dust irritation increase." },
+      { "id": "comfortable", "label": "Comfortable", "color": "#10b981", "max": 60, "scaleMax": 100, "advice": "Evaporative cooling works well. Ideal for outdoor activity." },
+      { "id": "humid", "label": "Humid", "color": "#0ea5a4", "max": 80, "scaleMax": 100, "advice": "Sweat evaporation drops. Hydrate ahead of activity." },
+      { "id": "very-humid", "label": "Very Humid", "color": "#4338ca", "max": 101, "scaleMax": 100, "advice": "Heat stress compounds quickly. Reduce intensity and duration." }
+    ],
+    "wind": [
+      { "id": "calm", "label": "Calm", "color": "#10b981", "max": 5, "scaleMax": 60, "advice": "Ideal for running, spraying and drone survey." },
+      { "id": "light", "label": "Light Breeze", "color": "#0ea5a4", "max": 15, "scaleMax": 60, "advice": "Comfortable breeze. Good pollutant dispersion." },
+      { "id": "moderate", "label": "Moderate", "color": "#f59e0b", "max": 25, "scaleMax": 60, "advice": "Spray drift risk rises above 15 km/h. Secure loose items." },
+      { "id": "fresh", "label": "Fresh", "color": "#f97316", "max": 38, "scaleMax": 60, "advice": "Difficult conditions for spraying and cycling. Watch gusts." },
+      { "id": "strong", "label": "Strong Gale", "color": "#ef4444", "max": 61, "scaleMax": 60, "advice": "Travel disruption likely. Avoid exposed routes." }
+    ],
+    "visibility": [
+      { "id": "poor", "label": "Poor", "color": "#ef4444", "max": 1, "scaleMax": 16, "advice": "Visibility under 1 km. Use low beams and fog signals." },
+      { "id": "low", "label": "Low", "color": "#f97316", "max": 4, "scaleMax": 16, "advice": "Reduced contrast. Allow extra following distance." },
+      { "id": "moderate", "label": "Moderate", "color": "#f59e0b", "max": 8, "scaleMax": 16, "advice": "Slight haze. Comfortable for most journeys." },
+      { "id": "good", "label": "Good", "color": "#0ea5a4", "max": 12, "scaleMax": 16, "advice": "Clear sightlines, no travel restrictions." },
+      { "id": "excellent", "label": "Excellent", "color": "#10b981", "max": 17, "scaleMax": 16, "advice": "Outstanding visibility across the region." }
+    ],
+    "rainProbability": [
+      { "id": "none", "label": "Dry", "color": "#f59e0b", "max": 10, "scaleMax": 100, "advice": "No rain expected. Plan outdoor work freely." },
+      { "id": "possible", "label": "Isolated Showers", "color": "#38bdf8", "max": 30, "scaleMax": 100, "advice": "Carry a light rain layer. Harvest window still open." },
+      { "id": "likely", "label": "Showers Likely", "color": "#3b82f6", "max": 60, "scaleMax": 100, "advice": "Intermittent rain. Complete spraying before noon." },
+      { "id": "very-likely", "label": "Rain Expected", "color": "#1d4ed8", "max": 85, "scaleMax": 100, "advice": "Sustained rain likely. Delay chemical application." },
+      { "id": "certain", "label": "Heavy Rain", "color": "#4338ca", "max": 101, "scaleMax": 100, "advice": "Continuous heavy rain. Waterlogging risk on low ground." }
+    ],
+    "temperature": [
+      { "id": "freezing", "label": "Freezing", "color": "#6366f1", "max": 2, "scaleMax": 50, "advice": "Frost risk on exposed crops. Start frost protection." },
+      { "id": "cold", "label": "Cold", "color": "#38bdf8", "max": 12, "scaleMax": 50, "advice": "Cold stress for sensitive people. Layer clothing." },
+      { "id": "mild", "label": "Mild", "color": "#10b981", "max": 20, "scaleMax": 50, "advice": "Comfortable temperature band for most activity." },
+      { "id": "warm", "label": "Warm", "color": "#84cc16", "max": 30, "scaleMax": 50, "advice": "Warm and workable. Keep hydration within reach." },
+      { "id": "hot", "label": "Hot", "color": "#f59e0b", "max": 36, "scaleMax": 50, "advice": "Heat stress builds. Schedule breaks every 45 minutes." },
+      { "id": "severe", "label": "Severe Heat", "color": "#f97316", "max": 42, "scaleMax": 50, "advice": "Avoid outdoor exertion between 11:00 and 16:00." },
+      { "id": "extreme", "label": "Extreme Heat", "color": "#dc2626", "max": 51, "scaleMax": 50, "advice": "Heatstroke risk. Stay indoors and hydrate continuously." }
+    ],
+    "score": [
+      { "id": "excellent", "label": "Excellent", "color": "#10b981", "max": 86, "scaleMax": 100, "advice": "Ideal conditions for the planned activity." },
+      { "id": "great", "label": "Great", "color": "#0ea5a4", "max": 71, "scaleMax": 100, "advice": "Strongly favourable. Proceed as planned." },
+      { "id": "good", "label": "Good", "color": "#84cc16", "max": 56, "scaleMax": 100, "advice": "Favourable with minor adjustments." },
+      { "id": "fair", "label": "Fair", "color": "#f59e0b", "max": 41, "scaleMax": 100, "advice": "Manageable, but pace and duration should be reduced." },
+      { "id": "poor", "label": "Poor", "color": "#ef4444", "max": 101, "scaleMax": 100, "advice": "Conditions work against the activity. Reschedule if possible." }
+    ],
+    "risk": [
+      { "id": "safe", "label": "Safe", "color": "#10b981", "max": 25, "scaleMax": 100, "advice": "No meaningful hazard detected." },
+      { "id": "moderate", "label": "Moderate", "color": "#f59e0b", "max": 50, "scaleMax": 100, "advice": "Adjust the plan slightly." },
+      { "id": "high", "label": "High", "color": "#f97316", "max": 72, "scaleMax": 100, "advice": "Change the plan." },
+      { "id": "extreme", "label": "Extreme", "color": "#ef4444", "max": 101, "scaleMax": 100, "advice": "Postpone the activity." }
+    ]
+  },
+  "riskLevels": [
+    {
+      "id": "safe",
+      "label": "Safe",
+      "color": "#10b981",
+      "min": 0,
+      "description": "No meaningful weather hazard detected for this persona.",
+      "advice": "Conditions are comfortable. Proceed with planned activity."
+    },
+    {
+      "id": "moderate",
+      "label": "Moderate",
+      "color": "#f59e0b",
+      "min": 0.25,
+      "description": "One or two manageable hazards. Minor adjustment advised.",
+      "advice": "Adjust timing or intensity, and carry a fallback plan."
+    },
+    {
+      "id": "high",
+      "label": "High",
+      "color": "#f97316",
+      "min": 0.5,
+      "description": "Multiple hazards stacking up. Plan changes required.",
+      "advice": "Change the plan: shorten, reschedule or relocate the activity."
+    },
+    {
+      "id": "extreme",
+      "label": "Extreme",
+      "color": "#ef4444",
+      "min": 0.72,
+      "description": "Severe hazard combination. Exposure is unsafe.",
+      "advice": "Postpone the activity and follow official advisories."
+    }
+  ],
+  "riskFactors": [
+    { "id": "air", "label": "Air Quality", "metric": "aqi", "low": 40, "high": 260, "weight": 0.22 },
+    { "id": "heat", "label": "Heat Stress", "metric": "temperature", "low": 32, "high": 46, "weight": 0.18 },
+    { "id": "cold", "label": "Cold Stress", "metric": "temperature", "low": 14, "high": 2, "weight": 0.1, "invert": true },
+    { "id": "uv", "label": "UV Exposure", "metric": "uv", "low": 6, "high": 11, "weight": 0.16 },
+    { "id": "wind", "label": "Wind Load", "metric": "wind", "low": 20, "high": 55, "weight": 0.14 },
+    { "id": "rain", "label": "Rain Exposure", "metric": "rainProbability", "low": 40, "high": 95, "weight": 0.12 },
+    { "id": "visibility", "label": "Visibility", "metric": "visibility", "low": 8, "high": 1.5, "weight": 0.08, "invert": true }
+  ],
+  "controls": [
+    {
+      "key": "persona",
+      "label": "User Persona",
+      "icon": "user-round",
+      "hint": "Re-renders every widget, recommendation and rule on the dashboard",
+      "group": "context",
+      "source": "personas"
+    },
+    {
+      "key": "condition",
+      "label": "Weather Condition",
+      "icon": "cloud-sun",
+      "hint": "Selects the baseline observation from weather.json",
+      "group": "context",
+      "source": "conditions"
+    },
+    {
+      "key": "timeOfDay",
+      "label": "Time of Day",
+      "icon": "clock",
+      "hint": "Applies diurnal offsets to temperature, UV, AQI and wind",
+      "group": "context",
+      "source": "timeOfDay"
+    },
+    {
+      "key": "location",
+      "label": "Location",
+      "icon": "map-pin",
+      "hint": "Adds regional offsets and travel destination context",
+      "group": "context",
+      "source": "locations"
+    },
+    {
+      "key": "temperature",
+      "label": "Temperature",
+      "icon": "thermometer",
+      "hint": "Drives heat stress, frost risk and activity comfort",
+      "group": "atmosphere",
+      "source": "conditions",
+      "unit": "°C",
+      "decimals": 0
+    },
+    {
+      "key": "humidity",
+      "label": "Humidity",
+      "icon": "droplets",
+      "hint": "Feels-like temperature, mould and spray drying risk",
+      "group": "atmosphere",
+      "source": "conditions",
+      "unit": "%",
+      "decimals": 0
+    },
+    {
+      "key": "aqi",
+      "label": "Air Quality Index",
+      "icon": "wind",
+      "hint": "Respiratory load for runners, children and patients",
+      "group": "atmosphere",
+      "source": "conditions",
+      "unit": "AQI",
+      "decimals": 0
+    },
+    {
+      "key": "rainProbability",
+      "label": "Rain Probability",
+      "icon": "cloud-rain",
+      "hint": "Irrigation, school commute and packing decisions",
+      "group": "atmosphere",
+      "source": "conditions",
+      "unit": "%",
+      "decimals": 0
+    },
+    {
+      "key": "uv",
+      "label": "UV Index",
+      "icon": "sun-medium",
+      "hint": "Burn risk, sunscreen and school play windows",
+      "group": "atmosphere",
+      "source": "conditions",
+      "unit": "UV",
+      "decimals": 0
+    },
+    {
+      "key": "wind",
+      "label": "Wind Speed",
+      "icon": "gauge",
+      "hint": "Spray drift, cycling and travel disruption",
+      "group": "atmosphere",
+      "source": "conditions",
+      "unit": "km/h",
+      "decimals": 0
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "morning-gold",
+      "label": "Morning Gold",
+      "icon": "sunrise",
+      "description": "Bengaluru · Runner · ideal training window",
+      "state": {
+        "persona": "runner",
+        "condition": "partly-cloudy",
+        "timeOfDay": "morning",
+        "location": "bengaluru",
+        "temperature": 23,
+        "humidity": 51,
+        "aqi": 56,
+        "rainProbability": 10,
+        "uv": 4,
+        "wind": 10
+      }
+    },
+    {
+      "id": "delhi-smog",
+      "label": "Delhi Smog Episode",
+      "icon": "wind",
+      "description": "New Delhi · severe particulate load",
+      "state": {
+        "persona": "health",
+        "condition": "haze",
+        "timeOfDay": "morning",
+        "location": "delhi",
+        "temperature": 28,
+        "humidity": 40,
+        "aqi": 302,
+        "rainProbability": 6,
+        "uv": 5,
+        "wind": 6
+      }
+    },
+    {
+      "id": "monsoon-surge",
+      "label": "Monsoon Surge",
+      "icon": "cloud-rain-wind",
+      "description": "Mumbai · 14 mm spell, waterlogging risk",
+      "state": {
+        "persona": "farmer",
+        "condition": "heavy-rain",
+        "timeOfDay": "afternoon",
+        "location": "mumbai",
+        "temperature": 26,
+        "humidity": 95,
+        "aqi": 46,
+        "rainProbability": 97,
+        "uv": 4,
+        "wind": 34
+      }
+    },
+    {
+      "id": "heatwave-alert",
+      "label": "Heatwave Alert",
+      "icon": "flame",
+      "description": "Jaipur · 46 °C, severe heat stress",
+      "state": {
+        "persona": "parent",
+        "condition": "heatwave",
+        "timeOfDay": "afternoon",
+        "location": "jaipur",
+        "temperature": 46,
+        "humidity": 16,
+        "aqi": 118,
+        "rainProbability": 2,
+        "uv": 12,
+        "wind": 14
+      }
+    },
+    {
+      "id": "valley-fog",
+      "label": "Valley Fog",
+      "icon": "cloud-fog",
+      "description": "Pune · 300 m visibility at dawn",
+      "state": {
+        "persona": "traveler",
+        "condition": "fog",
+        "timeOfDay": "dawn",
+        "location": "pune",
+        "temperature": 15,
+        "humidity": 96,
+        "aqi": 92,
+        "rainProbability": 20,
+        "uv": 2,
+        "wind": 4
+      }
+    },
+    {
+      "id": "ridge-storm",
+      "label": "Ridge Storm",
+      "icon": "cloud-lightning",
+      "description": "Guwahati · lightning risk after 15:00",
+      "state": {
+        "persona": "traveler",
+        "condition": "thunderstorm",
+        "timeOfDay": "afternoon",
+        "location": "guwahati",
+        "temperature": 27,
+        "humidity": 88,
+        "aqi": 48,
+        "rainProbability": 92,
+        "uv": 6,
+        "wind": 38
+      }
+    }
+  ]
+}

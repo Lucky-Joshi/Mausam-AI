@@ -1,0 +1,394 @@
+[
+  {
+    "id": "run-early",
+    "personas": ["runner"],
+    "title": "Excellent window for an early morning run",
+    "description": "AQI {{aqi}} ({{aqiLabel}}), {{rainProbability}}% rain and {{temperature}}°C make {{idealWindow}} the strongest slot of the day. Keep the first 10 km easy and build from there.",
+    "icon": "footprints",
+    "priority": "high",
+    "priorityLabel": "Do it now",
+    "confidence": 94,
+    "tone": "success",
+    "window": "{{idealWindow}}",
+    "action": "Start easy, build over 40 minutes",
+    "featured": true,
+    "when": { "aqi": { "lt": 100 }, "rainProbability": { "lt": 40 }, "temperature": { "between": [8, 30] } },
+    "why": [
+      "AQI {{aqi}} is {{aqiLabel}} — no airway penalty for sustained effort",
+      "Rain probability {{rainProbability}}% keeps the surface dry",
+      "Temperature {{temperature}}°C with {{humidity}}% humidity sits in the comfort band",
+      "UV {{uv}} at {{timeOfDayLabel}} — no sunscreen needed before 40 minutes"
+    ]
+  },
+  {
+    "id": "run-shorten",
+    "personas": ["runner"],
+    "title": "Shorten the run and lower the pace target",
+    "description": "Conditions are workable but not optimal. AQI {{aqi}} and {{temperature}}°C mean heart rate rises faster than usual — cap the session at {{sessionCap}} minutes.",
+    "icon": "heart-pulse",
+    "priority": "medium",
+    "priorityLabel": "Adjust",
+    "confidence": 88,
+    "tone": "warning",
+    "window": "{{timeOfDayLabel}}",
+    "action": "Cap effort, add a walk break",
+    "when": { "temperature": { "between": [30, 36] } },
+    "why": [
+      "Temperature {{temperature}}°C adds heat stress to cardiovascular load",
+      "Humidity {{humidity}}% slows evaporative cooling",
+      "AQI {{aqi}} reduces aerobic recovery between intervals"
+    ]
+  },
+  {
+    "id": "run-postpone",
+    "personas": ["runner"],
+    "title": "Postpone the session — conditions are unsafe",
+    "description": "{{conditionLabel}} with {{rainProbability}}% rain probability and {{wind}} km/h wind. Defer training for 24 hours or switch to an indoor protocol.",
+    "icon": "cloud-rain-wind",
+    "priority": "critical",
+    "priorityLabel": "Postpone",
+    "confidence": 96,
+    "tone": "danger",
+    "window": "Next 24 hours",
+    "action": "Move to treadmill or rest day",
+    "when": { "rainProbability": { "gte": 70 } },
+    "why": [
+      "Rain probability {{rainProbability}}% with {{precipitation}} mm accumulation",
+      "Wet surfaces raise the injury rate by 3×",
+      "Visibility {{visibility}} km reduces confidence on the route"
+    ]
+  },
+  {
+    "id": "run-air",
+    "personas": ["runner"],
+    "title": "Shift to an indoor session — air quality is the limiter",
+    "description": "AQI {{aqi}} ({{aqiLabel}}). Outdoor running at this level raises particulate load directly into the airway. Prefer a treadmill or cycling block today.",
+    "icon": "wind",
+    "priority": "high",
+    "priorityLabel": "Switch to indoor",
+    "confidence": 93,
+    "tone": "danger",
+    "window": "Until AQI < 100",
+    "action": "Indoor cross-training",
+    "when": { "aqi": { "gte": 150 } },
+    "why": [
+      "AQI {{aqi}} exceeds the 150 threshold for outdoor effort",
+      "Particulate matter enters deepest at sustained nasal breathing rates",
+      "Wind {{wind}} km/h is not strong enough to disperse pollutants"
+    ]
+  },
+
+  {
+    "id": "farm-spray-now",
+    "personas": ["farmer"],
+    "title": "Complete spraying in the next four hours",
+    "description": "Wind {{wind}} km/h and {{rainProbability}}% rain leave a clean application window. Low-drift nozzles are still advised above {{wind}} km/h.",
+    "icon": "spray-can",
+    "priority": "high",
+    "priorityLabel": "Act now",
+    "confidence": 91,
+    "tone": "success",
+    "window": "Now → +4h",
+    "action": "Start application block",
+    "featured": true,
+    "when": { "wind": { "lt": 18 }, "rainProbability": { "lt": 35 } },
+    "why": [
+      "Wind {{wind}} km/h ({{windLabel}}) is inside the safe drift band",
+      "Rain probability {{rainProbability}}% keeps the canopy dry",
+      "Humidity {{humidity}}% supports adhesion",
+      "Temperature {{temperature}}°C is below the volatilisation threshold"
+    ]
+  },
+  {
+    "id": "farm-rain-help",
+    "personas": ["farmer"],
+    "title": "Rain is coming — delay application and irrigation",
+    "description": "{{rainProbability}}% probability with {{precipitation}} mm expected. Hold chemical application for 48 hours to avoid run-off into drainage channels.",
+    "icon": "cloud-rain",
+    "priority": "high",
+    "priorityLabel": "Delay work",
+    "confidence": 94,
+    "tone": "info",
+    "window": "Next 6–12 hours",
+    "action": "Reschedule spraying block",
+    "when": { "rainProbability": { "gte": 55 } },
+    "why": [
+      "Rain probability {{rainProbability}}% inside the drying window",
+      "{{precipitation}} mm accumulation raises waterlogging risk on low ground",
+      "Soil moisture rises, delaying the next field operation by 48 hours"
+    ]
+  },
+  {
+    "id": "farm-frost",
+    "personas": ["farmer"],
+    "title": "Frost protocol for tonight",
+    "description": "Temperature {{temperature}}°C under {{conditionLabel}} skies. Light irrigation before sunset lifts canopy temperature 1.5–2 °C and prevents frost damage.",
+    "icon": "snowflake",
+    "priority": "critical",
+    "priorityLabel": "Tonight",
+    "confidence": 95,
+    "tone": "danger",
+    "window": "Tonight 21:00 → 05:00",
+    "action": "Light irrigation + cover young plots",
+    "when": { "temperature": { "lte": 4 } },
+    "why": [
+      "Minimum temperature {{temperature}}°C is below the frost threshold",
+      "Cloud cover {{cloudCover}}% means radiative cooling to the surface",
+      "Wind {{wind}} km/h is too weak to mix the cold air layer"
+    ]
+  },
+  {
+    "id": "farm-heat",
+    "personas": ["farmer"],
+    "title": "Heat stress — move irrigation to first light",
+    "description": "{{temperature}}°C accelerates evapotranspiration sharply. Irrigating at {{idealWindow}} cuts water loss by roughly 30% versus midday application.",
+    "icon": "thermometer-sun",
+    "priority": "high",
+    "priorityLabel": "Reschedule",
+    "confidence": 92,
+    "tone": "warning",
+    "window": "{{idealWindow}}",
+    "action": "Shift irrigation to dawn",
+    "when": { "temperature": { "gte": 36 } },
+    "why": [
+      "Temperature {{temperature}}°C is in the severe heat band",
+      "Humidity {{humidity}}% is too low for midday efficiency",
+      "Wind {{wind}} km/h increases crop water demand"
+    ]
+  },
+
+  {
+    "id": "travel-depart",
+    "personas": ["traveler"],
+    "title": "Clear corridor — travel on schedule",
+    "description": "Visibility {{visibility}} km, rain {{rainProbability}}% and wind {{wind}} km/h. The primary itinerary holds with no buffer required.",
+    "icon": "send",
+    "priority": "medium",
+    "priorityLabel": "On schedule",
+    "confidence": 90,
+    "tone": "success",
+    "window": "Now → +3h",
+    "action": "Proceed with the plan",
+    "featured": true,
+    "when": { "visibility": { "gte": 8 }, "rainProbability": { "lt": 40 } },
+    "why": [
+      "Visibility {{visibility}} km is {{visibilityLabel}} for the corridor",
+      "Rain probability {{rainProbability}}% under {{conditionLabel}}",
+      "Destination {{destination}} is favourable on arrival"
+    ]
+  },
+  {
+    "id": "travel-delay",
+    "personas": ["traveler"],
+    "title": "Delay departure by two hours",
+    "description": "{{conditionLabel}} is reducing visibility to {{visibility}} km. Approach lighting and the road segment to the terminal are the bottlenecks.",
+    "icon": "clock",
+    "priority": "high",
+    "priorityLabel": "Delay",
+    "confidence": 88,
+    "tone": "warning",
+    "window": "Delay to {{delayWindow}}",
+    "action": "Re-book departure slot",
+    "when": { "visibility": { "lt": 6 } },
+    "why": [
+      "Visibility {{visibility}} km is below the 6 km corridor threshold",
+      "Humidity {{humidity}}% promotes continued fog formation",
+      "Wind {{wind}} km/h prevents rapid dissipation"
+    ]
+  },
+  {
+    "id": "travel-pack",
+    "personas": ["traveler"],
+    "title": "Rain gear is non-negotiable for this trip",
+    "description": "Rain probability {{rainProbability}}% with {{precipitation}} mm expected. Pack a waterproof shell, quick-dry layers and grippy footwear for {{destination}}.",
+    "icon": "briefcase",
+    "priority": "medium",
+    "priorityLabel": "Pack now",
+    "confidence": 87,
+    "tone": "info",
+    "window": "Before departure",
+    "action": "Update the packing list",
+    "when": { "rainProbability": { "gte": 45 } },
+    "why": [
+      "Rain probability {{rainProbability}}% across the travel window",
+      "Destination note: {{destinationNote}}",
+      "Feels-like temperature {{feelsLike}}°C needs a thermal layer"
+    ]
+  },
+  {
+    "id": "travel-risk",
+    "personas": ["traveler"],
+    "title": "Severe weather on the route — reconsider the leg",
+    "description": "{{conditionLabel}} with {{wind}} km/h gusts. Corridors toward {{destination}} are the most exposed section of this itinerary.",
+    "icon": "shield-alert",
+    "priority": "critical",
+    "priorityLabel": "Reconsider",
+    "confidence": 95,
+    "tone": "danger",
+    "window": "Until conditions ease",
+    "action": "Reroute or postpone the leg",
+    "when": { "wind": { "gte": 35 } },
+    "why": [
+      "Wind {{wind}} km/h exceeds safe driving limits for high-sided vehicles",
+      "Visibility {{visibility}} km compounds the braking distance problem",
+      "AQI {{aqi}} adds a secondary health penalty on the route"
+    ]
+  },
+
+  {
+    "id": "parent-commute-ok",
+    "personas": ["parent"],
+    "title": "Normal school day — no action needed",
+    "description": "Visibility {{visibility}} km, AQI {{aqi}} and {{rainProbability}}% rain. Travel on schedule with the usual water bottles and sunscreen.",
+    "icon": "school",
+    "priority": "low",
+    "priorityLabel": "All clear",
+    "confidence": 92,
+    "tone": "success",
+    "window": "{{idealWindow}}",
+    "action": "Proceed as planned",
+    "featured": true,
+    "when": { "aqi": { "lt": 120 }, "rainProbability": { "lt": 40 }, "visibility": { "gte": 6 } },
+    "why": [
+      "AQI {{aqi}} is {{aqiLabel}} — safe for the school gate queue",
+      "Visibility {{visibility}} km keeps the crossing visible",
+      "Temperature {{temperature}}°C is comfortable for walking to the gate"
+    ]
+  },
+  {
+    "id": "parent-rain-plan",
+    "personas": ["parent"],
+    "title": "Keep an indoor play plan ready",
+    "description": "Rain probability {{rainProbability}}% with {{precipitation}} mm expected. Outdoor break will likely move indoors — pack a board game or the tablet.",
+    "icon": "umbrella",
+    "priority": "medium",
+    "priorityLabel": "Plan B ready",
+    "confidence": 90,
+    "tone": "info",
+    "window": "School hours",
+    "action": "Prepare indoor activities",
+    "when": { "rainProbability": { "gte": 45 } },
+    "why": [
+      "Rain probability {{rainProbability}}% during the school break window",
+      "Ground will be wet, which raises slip risk on hard surfaces",
+      "Visibility {{visibility}} km reduces sightlines for road crossing"
+    ]
+  },
+  {
+    "id": "parent-air",
+    "personas": ["parent"],
+    "title": "AQI alert — carry masks to the school gate",
+    "description": "AQI {{aqi}} ({{aqiLabel}}). Children breathe faster than adults and absorb more particulate per kilo of body weight. Send two masks if asthma runs in the family.",
+    "icon": "wind",
+    "priority": "high",
+    "priorityLabel": "Masks required",
+    "confidence": 93,
+    "tone": "danger",
+    "window": "Morning peak",
+    "action": "Send masks with the child",
+    "when": { "aqi": { "gte": 120 } },
+    "why": [
+      "AQI {{aqi}} is in the {{aqiLabel}} band",
+      "Children at the school gate are exposed for 30–45 minutes",
+      "Wind {{wind}} km/h is too weak to disperse the plume"
+    ]
+  },
+  {
+    "id": "parent-heat",
+    "personas": ["parent"],
+    "title": "Peak heat — shorten the outdoor break",
+    "description": "{{temperature}}°C with UV {{uv}} at {{timeOfDayLabel}}. Cap outdoor play at 20 minutes and move the rest of the break indoors.",
+    "icon": "thermometer-sun",
+    "priority": "high",
+    "priorityLabel": "Shorten break",
+    "confidence": 91,
+    "tone": "warning",
+    "window": "11:00 – 16:00",
+    "action": "Cap outdoor time at 20 min",
+    "when": { "temperature": { "gte": 36 } },
+    "why": [
+      "Temperature {{temperature}}°C is in the severe heat band",
+      "UV {{uv}} ({uvLabel}) causes burns in 15 minutes of exposure",
+      "Humidity {{humidity}}% limits children's evaporative cooling"
+    ]
+  },
+
+  {
+    "id": "health-clear-air",
+    "personas": ["health"],
+    "title": "Air is clean — open the windows and exercise outside",
+    "description": "AQI {{aqi}} ({{aqiLabel}}) with wind {{wind}} km/h. This is the ideal combination for a long outdoor session with deep breathing.",
+    "icon": "leaf",
+    "priority": "medium",
+    "priorityLabel": "Good day",
+    "confidence": 93,
+    "tone": "success",
+    "window": "{{idealWindow}}",
+    "action": "Ventilate the home, exercise outdoors",
+    "featured": true,
+    "when": { "aqi": { "lt": 60 } },
+    "why": [
+      "AQI {{aqi}} is {{aqiLabel}} with no particulate penalty",
+      "Wind {{wind}} km/h actively ventilates indoor air",
+      "UV {{uv}} is manageable with basic sun protection"
+    ]
+  },
+  {
+    "id": "health-mask",
+    "personas": ["health"],
+    "title": "Wear an N95 outdoors today",
+    "description": "AQI {{aqi}} ({{aqiLabel}}). {{aqiAdvice}} Consider closing windows facing traffic and run an air purifier on recirculation.",
+    "icon": "wind",
+    "priority": "high",
+    "priorityLabel": "Protect airway",
+    "confidence": 95,
+    "tone": "danger",
+    "window": "All outdoor exposure",
+    "action": "N95 outdoors, purifier indoors",
+    "when": { "aqi": { "gte": 150 } },
+    "why": [
+      "AQI {{aqi}} is {{aqiLabel}}",
+      "PM2.5 penetrates to the alveolar level during exercise",
+      "Wind {{wind}} km/h is below the dispersion threshold"
+    ]
+  },
+  {
+    "id": "health-humid-mould",
+    "personas": ["health"],
+    "title": "Humidity is high — run a dehumidifier",
+    "description": "Humidity {{humidity}}% with a feels-like {{feelsLike}}°C. Above 70% for extended periods, mould and dust mites multiply in indoor spaces.",
+    "icon": "droplets",
+    "priority": "medium",
+    "priorityLabel": "Control humidity",
+    "confidence": 90,
+    "tone": "warning",
+    "window": "Night and early morning",
+    "action": "Dehumidify below 55% RH",
+    "when": { "humidity": { "gte": 78 } },
+    "why": [
+      "Humidity {{humidity}}% ({humidityLabel}) sustains mite populations",
+      "Feels-like {{feelsLike}}°C reduces sleep quality in humid rooms",
+      "Rain probability {{rainProbability}}% means damp days in a row", "when": { "rainProbability": { "gte": 50 } }
+    ]
+  },
+  {
+    "id": "health-hydrate",
+    "personas": ["health"],
+    "title": "Hydration demand is elevated",
+    "description": "{{temperature}}°C and UV {{uv}} push fluid loss above the daily baseline. Target 30 ml per kilo of body weight, plus electrolytes if you train outdoors.",
+    "icon": "glass-water",
+    "priority": "medium",
+    "priorityLabel": "Hydrate more",
+    "confidence": 87,
+    "tone": "info",
+    "window": "All day",
+    "action": "Add electrolytes to the daily target",
+    "when": { "temperature": { "gte": 30 } },
+    "why": [
+      "Temperature {{temperature}}°C raises sweat rate",
+      "UV {{uv}} increases cutaneous water loss",
+      "Wind {{wind}} km/h adds convective loss",
+      "Humidity {{humidity}}% partially offsets the loss"
+    ]
+  }
+]

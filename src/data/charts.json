@@ -1,0 +1,53 @@
+{
+  "ranges": [
+    { "id": "6h", "label": "6H", "points": 3 },
+    { "id": "12h", "label": "12H", "points": 5 },
+    { "id": "24h", "label": "24H", "points": 8 }
+  ],
+  "metrics": [
+    {
+      "id": "temperature",
+      "label": "Temperature Trend",
+      "shortLabel": "Temperature",
+      "icon": "thermometer",
+      "color": "#f97316",
+      "unit": "°C",
+      "type": "area",
+      "bandKey": "temperature",
+      "description": "Hourly temperature with the feels-like line overlaid for the selected daypart."
+    },
+    {
+      "id": "aqi",
+      "label": "Air Quality Trend",
+      "shortLabel": "AQI",
+      "icon": "wind",
+      "color": "#7c3aed",
+      "unit": " AQI",
+      "type": "area",
+      "bandKey": "aqi",
+      "description": "Particulate trend against the CPCB band boundaries."
+    },
+    {
+      "id": "humidity",
+      "label": "Humidity Trend",
+      "shortLabel": "Humidity",
+      "icon": "droplets",
+      "color": "#0ea5e4",
+      "unit": "%",
+      "type": "line",
+      "bandKey": "humidity",
+      "description": "Relative humidity drives sweat efficiency, fog risk and spray drying time."
+    },
+    {
+      "id": "rainProbability",
+      "label": "Rain Probability",
+      "shortLabel": "Rain",
+      "icon": "cloud-rain",
+      "color": "#2563eb",
+      "unit": "%",
+      "type": "bar",
+      "bandKey": "rainProbability",
+      "description": "PoP forecast across the next 24 hours for the selected block."
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "sunrise": "06:11",
+  "sunset": "18:32",
+  "chart": {
+    "points": 8,
+    "hourStep": 3,
+    "startHour": { "dawn": 5, "morning": 9, "afternoon": 15, "evening": 19, "night": 23 }
+  },
+  "conditions": [
+    {
+      "id": "clear",
+      "label": "Clear Sky",
+      "shortLabel": "Clear",
+      "icon": "sun",
+      "severity": 0.05,
+      "gradient": ["#0284c7", "#7dd3fc"],
+      "temperature": 27,
+      "humidity": 34,
+      "aqi": 46,
+      "uv": 9,
+      "wind": 8,
+      "visibility": 16,
+      "rainProbability": 2,
+      "precipitation": 0,
+      "cloudCover": 6,
+      "summary": "Bright, dry and calm. Ideal visibility across the region."
+    },
+    {
+      "id": "partly-cloudy",
+      "label": "Partly Cloudy",
+      "shortLabel": "P. Cloudy",
+      "icon": "cloud-sun",
+      "severity": 0.12,
+      "gradient": ["#0ea5e9", "#a5b4fc"],
+      "temperature": 26,
+      "humidity": 45,
+      "aqi": 58,
+      "uv": 7,
+      "wind": 12,
+      "visibility": 14,
+      "rainProbability": 12,
+      "precipitation": 0,
+      "cloudCover": 45,
+      "summary": "Broken cloud with bright spells. Comfortable for most outdoor plans."
+    },
+    {
+      "id": "cloudy",
+      "label": "Overcast",
+      "shortLabel": "Cloudy",
+      "icon": "cloud",
+      "severity": 0.22,
+      "gradient": ["#64748b", "#cbd5e1"],
+      "temperature": 24,
+      "humidity": 58,
+      "aqi": 76,
+      "uv": 5,
+      "wind": 14,
+      "visibility": 11,
+      "rainProbability": 26,
+      "precipitation": 0.2,
+      "cloudCover": 88,
+      "summary": "Thick cloud cover. Diffuse light and flat temperatures all day."
+    },
+    {
+      "id": "haze",
+      "label": "Smog & Haze",
+      "shortLabel": "Haze",
+      "icon": "wind",
+      "severity": 0.48,
+      "gradient": ["#b45309", "#fcd34d"],
+      "temperature": 28,
+      "humidity": 48,
+      "aqi": 168,
+      "uv": 6,
+      "wind": 7,
+      "visibility": 5,
+      "rainProbability": 8,
+      "precipitation": 0,
+      "cloudCover": 60,
+      "summary": "Suspended particulate matter from stubble and dust. Sensitive groups affected."
+    },
+    {
+      "id": "fog",
+      "label": "Dense Fog",
+      "shortLabel": "Fog",
+      "icon": "cloud-fog",
+      "severity": 0.5,
+      "gradient": ["#94a3b8", "#e2e8f0"],
+      "temperature": 18,
+      "humidity": 92,
+      "aqi": 96,
+      "uv": 2,
+      "wind": 4,
+      "visibility": 1.2,
+      "rainProbability": 18,
+      "precipitation": 0.1,
+      "cloudCover": 100,
+      "summary": "Radiation fog with visibility under 1.5 km. Travel at reduced speed."
+    },
+    {
+      "id": "drizzle",
+      "label": "Light Drizzle",
+      "shortLabel": "Drizzle",
+      "icon": "cloud-drizzle",
+      "severity": 0.34,
+      "gradient": ["#3b82f6", "#a5b4fc"],
+      "temperature": 22,
+      "humidity": 78,
+      "aqi": 54,
+      "uv": 3,
+      "wind": 11,
+      "visibility": 8,
+      "rainProbability": 62,
+      "precipitation": 0.6,
+      "cloudCover": 92,
+      "summary": "Patchy light drizzle. Roads damp, no accumulation expected."
+    },
+    {
+      "id": "rain",
+      "label": "Monsoon Rain",
+      "shortLabel": "Rain",
+      "icon": "cloud-rain",
+      "severity": 0.56,
+      "gradient": ["#1d4ed8", "#60a5fa"],
+      "temperature": 21,
+      "humidity": 86,
+      "aqi": 48,
+      "uv": 2,
+      "wind": 16,
+      "visibility": 7,
+      "rainProbability": 88,
+      "precipitation": 4.2,
+      "cloudCover": 97,
+      "summary": "Steady rainfall with ponding on low-lying roads. Waterlogging likely."
+    },
+    {
+      "id": "heavy-rain",
+      "label": "Heavy Rain",
+      "shortLabel": "Heavy Rain",
+      "icon": "cloud-rain-wind",
+      "severity": 0.8,
+      "gradient": ["#1e3a8a", "#3b82f6"],
+      "temperature": 19,
+      "humidity": 92,
+      "aqi": 42,
+      "uv": 1,
+      "wind": 26,
+      "visibility": 4,
+      "rainProbability": 96,
+      "precipitation": 14,
+      "cloudCover": 99,
+      "summary": "Heavy to very heavy spells. Waterlogging and local flooding risk."
+    },
+    {
+      "id": "thunderstorm",
+      "label": "Thunderstorm",
+      "shortLabel": "Storm",
+      "icon": "cloud-lightning",
+      "severity": 0.9,
+      "gradient": ["#4c1d95", "#7c3aed"],
+      "temperature": 23,
+      "humidity": 80,
+      "aqi": 44,
+      "uv": 3,
+      "wind": 32,
+      "visibility": 6,
+      "rainProbability": 90,
+      "precipitation": 9,
+      "cloudCover": 98,
+      "summary": "Thunderstorm cells with lightning, gusts and brief intense rain."
+    },
+    {
+      "id": "heatwave",
+      "label": "Heat Wave",
+      "shortLabel": "Heat Wave",
+      "icon": "flame",
+      "severity": 0.85,
+      "gradient": ["#ea580c", "#fde68a"],
+      "temperature": 43,
+      "humidity": 18,
+      "aqi": 92,
+      "uv": 11,
+      "wind": 12,
+      "visibility": 14,
+      "rainProbability": 4,
+      "precipitation": 0,
+      "cloudCover": 2,
+      "summary": "Severe heat stress. Heatstroke risk between 11:00 and 16:00."
+    },
+    {
+      "id": "snow",
+      "label": "Snowfall",
+      "shortLabel": "Snow",
+      "icon": "snowflake",
+      "severity": 0.6,
+      "gradient": ["#0369a1", "#e0f2fe"],
+      "temperature": -2,
+      "humidity": 70,
+      "aqi": 28,
+      "uv": 3,
+      "wind": 18,
+      "visibility": 6,
+      "rainProbability": 80,
+      "precipitation": 3,
+      "cloudCover": 95,
+      "summary": "Fresh snowfall with cold winds. Ridge roads may be closed."
+    }
+  ],
+  "forecastPattern": {
+    "days": 7,
+    "conditionShift": [0, 1, -1, 0, 1, 0, -1],
+    "temperatureDelta": [1, -2, 2, -1, 0, 2, -2],
+    "rainDelta": [4, -6, 8, -10, 2, 6, -4],
+    "aqiDelta": [6, -8, 4, -10, 8, -4, 2],
+    "uvDelta": [1, -1, 0, -2, 1, 0, -1]
+  },
+  "timeOfDay": [
+    {
+      "id": "dawn",
+      "label": "Dawn",
+      "icon": "sunrise",
+      "temperatureOffset": -4,
+      "humidityOffset": 7,
+      "aqiOffset": -12,
+      "uvOffset": -5,
+      "windFactor": 0.65,
+      "note": "Coolest hour, calm winds, air near daily minimum"
+    },
+    {
+      "id": "morning",
+      "label": "Morning",
+      "icon": "sun-medium",
+      "temperatureOffset": -2,
+      "humidityOffset": 2,
+      "aqiOffset": -6,
+      "uvOffset": -3,
+      "windFactor": 0.8,
+      "note": "Best outdoor window before convective heating"
+    },
+    {
+      "id": "afternoon",
+      "label": "Afternoon",
+      "icon": "sun-high",
+      "temperatureOffset": 4,
+      "humidityOffset": -5,
+      "aqiOffset": 2,
+      "uvOffset": 2,
+      "windFactor": 1.15,
+      "note": "Peak heat, peak UV, thermal convection develops"
+    },
+    {
+      "id": "evening",
+      "label": "Evening",
+      "icon": "sunset",
+      "temperatureOffset": 1,
+      "humidityOffset": 2,
+      "aqiOffset": 9,
+      "uvOffset": -2,
+      "windFactor": 0.9,
+      "note": "Comfortable but rising aerosol load near traffic corridors"
+    },
+    {
+      "id": "night",
+      "label": "Night",
+      "icon": "moon",
+      "temperatureOffset": -3,
+      "humidityOffset": 6,
+      "aqiOffset": 16,
+      "uvOffset": -6,
+      "windFactor": 0.75,
+      "note": "Cool, humid, moderate ground-level inversion risk"
+    }
+  ],
+  "series": {
+    "temperature": {
+      "shape": [0.78, 0.9, 0.98, 1.04, 0.99, 0.92, 0.86, 0.8],
+      "spread": 4,
+      "spreadByCondition": {
+        "clear": 6,
+        "partly-cloudy": 5,
+        "cloudy": 3,
+        "haze": 5.5,
+        "fog": 2,
+        "drizzle": 2.5,
+        "rain": 2.5,
+        "heavy-rain": 3,
+        "thunderstorm": 4,
+        "heatwave": 7,
+        "snow": 4
+      }
+    },
+    "aqi": {
+      "shape": [1.12, 1.02, 0.92, 0.86, 0.94, 1.08, 1.2, 1.16],
+      "byCondition": {
+        "haze": [1.35, 1.28, 1.2, 1.12, 1.05, 1.1, 1.3, 1.32],
+        "thunderstorm": [0.7, 0.6, 0.55, 0.5, 0.6, 0.7, 0.75, 0.72],
+        "heavy-rain": [0.8, 0.7, 0.62, 0.58, 0.66, 0.78, 0.85, 0.82],
+        "snow": [0.6, 0.55, 0.5, 0.48, 0.55, 0.6, 0.62, 0.6]
+      }
+    },
+    "humidity": {
+      "shape": [0.9, 0.86, 0.84, 0.9, 0.98, 1.04, 1.1, 1.06],
+      "byCondition": {
+        "heatwave": [0.5, 0.44, 0.4, 0.42, 0.5, 0.6, 0.7, 0.66],
+        "fog": [1.05, 1.02, 1.0, 1.0, 1.02, 1.05, 1.08, 1.06]
+      }
+    },
+    "rainProbability": {
+      "shape": [0.6, 0.78, 1.0, 1.12, 0.96, 0.72, 0.52, 0.46],
+      "byCondition": {
+        "clear": [0.15, 0.2, 0.3, 0.35, 0.25, 0.15, 0.1, 0.1],
+        "heatwave": [0.1, 0.1, 0.15, 0.2, 0.15, 0.1, 0.08, 0.08],
+        "thunderstorm": [0.55, 0.85, 1.05, 1.0, 0.7, 0.6, 0.7, 0.65],
+        "heavy-rain": [0.9, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8, 0.78]
+      }
+    },
+    "uv": {
+      "shape": [0.7, 0.88, 1.0, 1.05, 0.9, 0.5, 0.15, 0.08]
+    },
+    "wind": {
+      "shape": [0.88, 1.0, 1.14, 1.26, 1.05, 0.85, 0.72, 0.78]
+    }
+  }
+}

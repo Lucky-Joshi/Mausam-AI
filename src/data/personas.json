@@ -1,0 +1,102 @@
+[
+  {
+    "id": "runner",
+    "label": "Runner",
+    "shortLabel": "Run",
+    "icon": "footprints",
+    "accent": "#2563eb",
+    "initials": "AR",
+    "tagline": "Train at the right hour, breathe clean air.",
+    "description": "Activity-aware scoring built on air quality, heat stress, rain probability and UV exposure so every session is timed correctly.",
+    "focus": ["Outdoor activity", "Breathing comfort", "Hydration & heat load"],
+    "idealWindow": "05:45 – 07:30",
+    "defaultCondition": "partly-cloudy",
+    "defaultTimeOfDay": "morning",
+    "member": {
+      "name": "Aarav Rathore",
+      "role": "Marathon athlete",
+      "goal": "Sub-3:30 at Bengaluru marathon",
+      "joined": "Jan 2026"
+    }
+  },
+  {
+    "id": "farmer",
+    "label": "Farmer",
+    "shortLabel": "Farm",
+    "icon": "sprout",
+    "accent": "#16a34a",
+    "initials": "RS",
+    "tagline": "Protect the crop window, not the clock.",
+    "description": "Field-level intelligence for rainfall windows, soil moisture, spray safety and frost exposure across the growing cycle.",
+    "focus": ["Crop stage risk", "Spray & irrigation windows", "Frost and heat exposure"],
+    "idealWindow": "06:00 – 09:00",
+    "defaultCondition": "clear",
+    "defaultTimeOfDay": "morning",
+    "member": {
+      "name": "Ravinder Singh",
+      "role": "Wheat & paddy grower",
+      "goal": "Protect 12 acres of rabi crop",
+      "joined": "Nov 2025"
+    }
+  },
+  {
+    "id": "traveler",
+    "label": "Traveler",
+    "shortLabel": "Travel",
+    "icon": "plane",
+    "accent": "#0ea5a4",
+    "initials": "MI",
+    "tagline": "Leave when the sky and the road agree.",
+    "description": "Departure windows, destination deltas, packing intelligence and disruption risk combined into one travel brief.",
+    "focus": ["Departure window", "Destination delta", "Disruption risk"],
+    "idealWindow": "07:00 – 10:00",
+    "defaultCondition": "partly-cloudy",
+    "defaultTimeOfDay": "morning",
+    "member": {
+      "name": "Meera Iyer",
+      "role": "Frequent flyer",
+      "goal": "Coastal road trip to Kochi",
+      "joined": "Mar 2026"
+    }
+  },
+  {
+    "id": "parent",
+    "label": "Parent",
+    "shortLabel": "Family",
+    "icon": "baby",
+    "accent": "#db2777",
+    "initials": "SK",
+    "tagline": "Safe school runs, safe play, safe evenings.",
+    "description": "Child-safe thresholds for commute visibility, rain disruption, outdoor play windows and peak heat hours.",
+    "focus": ["School commute safety", "Outdoor play windows", "Peak heat avoidance"],
+    "idealWindow": "07:30 – 08:30",
+    "defaultCondition": "partly-cloudy",
+    "defaultTimeOfDay": "morning",
+    "member": {
+      "name": "Sunita Kulkarni",
+      "role": "Parent of two",
+      "goal": "Zero missed school days this term",
+      "joined": "Feb 2026"
+    }
+  },
+  {
+    "id": "health",
+    "label": "Health Conscious",
+    "shortLabel": "Health",
+    "icon": "heart-pulse",
+    "accent": "#7c3aed",
+    "initials": "NP",
+    "tagline": "Breathe easy, hydrate right, avoid the spike.",
+    "description": "Respiratory, allergy and hydration intelligence tuned to AQI, pollen load, humidity swings and UV exposure.",
+    "focus": ["Respiratory comfort", "Allergy triggers", "Hydration balance"],
+    "idealWindow": "06:30 – 08:00",
+    "defaultCondition": "haze",
+    "defaultTimeOfDay": "morning",
+    "member": {
+      "name": "Dr. Nisha Pillai",
+      "role": "Pulmonology resident",
+      "goal": "Keep exposure under AQI 100 daily",
+      "joined": "Dec 2025"
+    }
+  }
+]
