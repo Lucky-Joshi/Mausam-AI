@@ -27,6 +27,15 @@ export type MetricKey =
   | 'visibility'
   | 'rainProbability'
 
+/** Metrics the simulation panel can drive with a slider. */
+export type TunableMetric =
+  | 'temperature'
+  | 'humidity'
+  | 'aqi'
+  | 'uv'
+  | 'wind'
+  | 'rainProbability'
+
 export type PersonaId = 'runner' | 'farmer' | 'traveler' | 'parent' | 'health'
 
 export type ControlKey =
@@ -232,9 +241,10 @@ export type ControlConfig = {
 export type SimulationMeta = {
   riskLevels: RiskLevel[]
   riskFactors: RiskFactor[]
+  severityColors: Record<AlertModel['severity'], string>
   bands: Record<string, Band[]>
-  ranges: Partial<Record<ControlKey, NumberRange>>
-  units: Partial<Record<ControlKey, string>>
+  ranges: Partial<Record<TunableMetric, NumberRange>>
+  units: Partial<Record<TunableMetric, string>>
   scenarios: Scenario[]
   controls: ControlConfig[]
   labels: {
@@ -399,7 +409,7 @@ export type WidgetModel = {
   source: string
   value: number | null
   displayValue: string
-  label: string
+  stateLabel: string
   detail: string
   tone: Tone
   confidence: number

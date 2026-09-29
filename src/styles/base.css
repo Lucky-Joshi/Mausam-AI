@@ -178,6 +178,10 @@ p {
   padding: var(--gap-6);
 }
 
+.card.pad {
+  padding: var(--gap-4);
+}
+
 .card.hoverable:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-3);
@@ -667,4 +671,13 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+.small {
+  font-size: var(--fs-sm);
+}
+
+.grid-2 {
+  display: grid;
+  gap: var(--gap-4);
 }

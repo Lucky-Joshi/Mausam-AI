@@ -2,22 +2,22 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode } from 'react'
 
 import { conditions, dashboard, locations, personas, simulation, timeOfDaySlots } from '../data'
-import { applyDeltas, buildDashboardModel, deltasFromInput, resolveBaseline } from '../lib/engine'
+import { buildDashboardModel, deltasFromInput, resolveBaseline } from '../lib/engine'
 import { clamp } from '../lib/format'
 import type {
   ControlKey,
   DashboardModel,
   MetricKey,
+  TunableMetric,
   PersonaId,
   ResolvedWeather,
-  SimulationDeltas,
   SimulationInput,
   SimulationState,
   ThemeName,
   UnitSystem,
 } from '../types'
 
-const METRIC_KEYS: MetricKey[] = ['temperature', 'humidity', 'aqi', 'rainProbability', 'uv', 'wind']
+const METRIC_KEYS: TunableMetric[] = ['temperature', 'humidity', 'aqi', 'rainProbability', 'uv', 'wind']
 
 const initialInput: SimulationInput = dashboard.defaultState
 
@@ -40,7 +40,7 @@ type AppStateValue = {
   setCondition: (id: string) => void
   setTimeOfDay: (id: string) => void
   setLocation: (id: string) => void
-  setMetric: (key: MetricKey, value: number) => void
+  setMetric: (key: TunableMetric, value: number) => void
   getMetric: (key: MetricKey) => number
   applyScenario: (id: string) => void
   reset: () => void
@@ -116,7 +116,7 @@ export const AppStateProvider = ({ children }: { children: ReactNode }) => {
 
   const getMetric = useCallback((key: MetricKey) => model.weather[key], [model])
 
-  const setMetric = useCallback((key: MetricKey, value: number) => {
+  const setMetric = useCallback((key: TunableMetric, value: number) => {
     setSim((current) => {
       const base = resolveBaseline(current)
       const next = clamp(value, simulation.ranges[key]?.min ?? 0, simulation.ranges[key]?.max ?? 100)
@@ -127,7 +127,7 @@ export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   const applyScenario = useCallback((id: string) => {
     const scenario = simulation.scenarios.find((s) => s.id === id)
     if (!scenario) return
-    setSim((current) => {
+    setSim(() => {
       const merged: SimulationInput = { ...scenario.state, persona: scenario.state.persona }
       const base = resolveBaseline(merged)
       return { ...merged, deltas: deltasFromInput(base, merged) }
@@ -144,7 +144,7 @@ export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   const randomize = useCallback(() => {
-    setSim((current) => {
+    setSim(() => {
       const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)] as T
       const next: SimulationInput = {
         persona: pick(personas).id,

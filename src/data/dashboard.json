@@ -38,7 +38,7 @@
     {
       "id": "analytics",
       "label": "Analytics",
-      "icon": "line-chart",
+      "icon": "chart-line",
       "path": "/analytics",
       "description": "Model confidence, trends and risk decomposition"
     },

@@ -93,6 +93,12 @@
       { "id": "extreme", "label": "Extreme", "color": "#ef4444", "max": 101, "scaleMax": 100, "advice": "Postpone the activity." }
     ]
   },
+  "severityColors": {
+    "extreme": "#ef4444",
+    "high": "#f97316",
+    "moderate": "#f59e0b",
+    "info": "#0ea5a4"
+  },
   "riskLevels": [
     {
       "id": "safe",

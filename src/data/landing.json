@@ -42,7 +42,7 @@
         "id": "opaque",
         "title": "No explanation, no trust",
         "description": "Alerts arrive as bare warnings. Citizens cannot tell why a decision was recommended or when it will change.",
-        "icon": "help-circle"
+        "icon": "circle-question-mark"
       }
     ]
   },

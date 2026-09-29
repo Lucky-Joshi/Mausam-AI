@@ -368,7 +368,7 @@
     "why": [
       "Humidity {{humidity}}% ({humidityLabel}) sustains mite populations",
       "Feels-like {{feelsLike}}°C reduces sleep quality in humid rooms",
-      "Rain probability {{rainProbability}}% means damp days in a row", "when": { "rainProbability": { "gte": 50 } }
+      "Rain probability {{rainProbability}}% means damp days in a row"
     ]
   },
   {

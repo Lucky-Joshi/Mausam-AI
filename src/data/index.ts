@@ -33,7 +33,7 @@ import type {
 
 export const personas = personasJson as Persona[]
 export const locations = locationsJson as Location[]
-export const weather = weatherJson as WeatherData
+export const weather = weatherJson as unknown as WeatherData
 export const simulation = simulationJson as SimulationMeta
 export const widgets = widgetsJson as WidgetData
 export const recommendations = recommendationsJson as Recommendation[]

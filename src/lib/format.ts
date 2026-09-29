@@ -117,3 +117,12 @@ export const seededRandom = (seed: number) => {
 }
 
 export const themeClass = (theme: ThemeName) => (theme === 'dark' ? 'theme-dark' : 'theme-light')
+
+/** "Aarav Rathore" → "AR" (used for the signed-in avatar). */
+export const initials = (name: string) =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('')

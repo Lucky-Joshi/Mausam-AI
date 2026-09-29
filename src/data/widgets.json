@@ -907,7 +907,7 @@
       "id": "parent-play",
       "personas": ["parent"],
       "label": "Play Safe Index",
-      "icon": "smile",
+      "icon": "face-slightly-smiling",
       "type": "gauge",
       "unit": "/100",
       "size": "normal",

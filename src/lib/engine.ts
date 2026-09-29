@@ -15,6 +15,7 @@ import {
   getTimeOfDay,
   recommendations as recommendationData,
   alerts as alertData,
+  simulation as simulationData,
   weather as weatherData,
   widgets as widgetData,
 } from '../data'
@@ -30,6 +31,7 @@ import type {
   SimulationDeltas,
   SimulationInput,
   SimulationState,
+  Tone,
   WidgetDefinition,
   WidgetModel,
 } from '../types'
@@ -249,12 +251,24 @@ export const buildForecast = (weather: ResolvedWeather, now = new Date()): Forec
  * Widgets
  * ------------------------------------------------------------------ */
 
+type ComputedWidget = {
+  value: number | null
+  displayValue: string
+  label: string
+  detail: string
+  tone: Tone
+  color: string
+  progress: number
+  items: { id: string; text: string }[]
+  confidence?: number
+}
+
 const computeWidget = (
   definition: WidgetDefinition,
   weather: ResolvedWeather,
   bands: Record<string, BandModel>,
   tokens: Record<string, string>,
-) => {
+): ComputedWidget => {
   const spec = definition.compute
 
   if (spec.kind === 'band') {
@@ -386,7 +400,7 @@ export const buildWidgets = (
       source: definition.source,
       value: computed.value,
       displayValue: computed.displayValue,
-      label: computed.label,
+      stateLabel: computed.label,
       detail: computed.detail,
       tone: computed.tone,
       confidence: clamp((computed.confidence ?? definition.why.confidence), 40, 99),
@@ -433,6 +447,10 @@ const SEVERITY_WEIGHT: Record<AlertModel['severity'], number> = {
   moderate: 2,
   info: 1,
 }
+
+/** Severity → colour resolved from simulation.json so the UI never hardcodes hues. */
+export const severityColor = (severity: AlertModel['severity']) =>
+  simulationData.severityColors[severity] ?? simulationData.severityColors.info
 
 export const buildAlerts = (weather: ResolvedWeather, tokens: Record<string, string>): AlertModel[] => {
   const bag = buildMatcherBag(weather)

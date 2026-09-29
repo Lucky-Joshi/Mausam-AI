@@ -130,7 +130,7 @@ export const computeScore = (base: number, factors: ComputeFactor[], weather: Re
  * ------------------------------------------------------------------ */
 
 export const factorSeverity = (
-  metric: MatchableKey,
+  _metric: MatchableKey,
   low: number,
   high: number,
   value: number,
@@ -160,7 +160,7 @@ export const buildRisk = (weather: ResolvedWeather) => {
     }
   })
   const totalWeight = factors.reduce((sum, f) => sum + f.weight, 0) || 1
-  const index = clamp01(factors.reduce((sum, f) => sum + f.contribution, 0) / totalWeight)
+  const index = clamp(Math.round((factors.reduce((sum, f) => sum + f.contribution, 0) / totalWeight) * 100), 0, 100)
   const level =
     [...simulation.riskLevels].reverse().find((l) => index >= l.min) ?? simulation.riskLevels[0]
   const next = simulation.riskLevels.find((l) => l.min > index) ?? null
@@ -173,7 +173,7 @@ export const buildRisk = (weather: ResolvedWeather) => {
 
 export type Baseline = SimulationInput & { baseline: ResolvedWeather }
 
-export const feelingTemperature = (temperature: number, humidity: number, wind: number) => {
+export const feelingTemperature = (temperature: number, _humidity: number, wind: number) => {
   const e = wind > 4.8 ? 6.075 * Math.exp((17.27 * temperature) / (237.7 + temperature)) : 6.075
   return temperature + 0.33 * e - 0.7 * wind - 4.0
 }
